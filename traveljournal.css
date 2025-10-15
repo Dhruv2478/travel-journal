@@ -1,0 +1,266 @@
+body {
+    font-family: "Times New Roman", Times, serif;
+    margin:0;
+    background-color:#e7e7de; 
+    color: #0b3950; 
+    text-align: center;
+
+}
+
+.website-header {
+    width: 100%;;
+    position:fixed;
+    top:0;
+    z-index: 1000;
+}
+
+
+.navbar{
+    display: flex;
+    border-radius: 0px;
+    align-items: center;
+    justify-content: space-between;
+    background-color:#12374a;
+    padding: 15px;
+}
+
+.logo {
+    font-size: medium;
+    font-weight: bold;
+    color: #e2e2e3;
+    display: flex;
+    align-items: center;
+}   
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+    
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #acc8d7;
+    font-weight: 500;
+}
+
+.profile-btn a {
+    color: #fff;
+    border-radius: 25px;
+    padding: 0;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.welcome {
+  margin-top: 0;
+}
+
+.cards{
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 20px;
+    
+}
+
+.card{
+    background: #f1ececfd;
+    color: #12374a;
+    width: 280px;
+    padding: 30px 20px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.card h3 {
+  font-size: 1.4rem;
+  color: #12374a;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 1rem;
+  color: #12374a;
+  margin-bottom: 20px;
+}
+
+
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+  background-color: #12374a;
+  padding: 8px 20px;
+  border-radius: 25px;
+  font-weight: 600;
+  
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+
+}
+
+.places {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 20px;
+   
+}
+
+.place-card {
+    background: #f1ececfd;
+    color: #12374a;
+    width: 280px;
+    padding: 30px 20px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.place-content {
+    padding: 16px;
+}
+
+.place-content h3 {
+    margin-top: 0;
+    color: #1a1a1a;
+}
+
+.place-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.place-content p {
+    color: #777;
+    margin: 10px 0;
+}
+
+.tags {
+    margin-bottom: 15px;
+}
+
+.tag {
+    display: inline-block;
+    background-color: #e0f0ff;
+    color: #007bff;
+    border-radius: 12px;
+    padding: 5px 10px;
+    font-size: 0.85em;
+    margin-right: 5px;
+}
+
+.banner {
+  position: relative;
+  width: 100%;
+  height: 30vw; 
+  overflow: hidden;
+  margin-top: 80px;
+  
+}
+
+.banner .background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height:90%;
+  background-image: url("banner.jpg");
+  background-size:cover;
+  background-position: center;
+  filter: brightness(60%);
+  z-index: 1;
+}
+
+.banner .banner-text {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  z-index: 2;
+  width: 80%;
+}
+
+.banner .banner-text h1 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+}
+
+.banner .banner-text p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.website-footer {
+    color: #e2e2e3; 
+    font-family: "Times New Roman", Times, serif;
+    text-align: left;
+    width: 100%;
+    
+}
+
+.footer-container {
+    display: flex;
+    background-color: #12374a; 
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 80px;
+    gap: 30px;
+    
+}
+
+.footer-section {
+    flex: 1 1 250px;
+}
+
+.footer-section h3 {
+    font-size: 1.2rem;
+    color: #acc8d7; 
+    margin-bottom: 15px;
+    border-bottom: 2px solid #e2e2e3; 
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.footer-section p, .footer-section a {
+    color: #e2e2e3;
+    font-size: 0.95em;
+    text-decoration: none;
+}
+
+.social-icons a {
+    display: inline-block;
+    margin-right: 10px;
+    color: #e2e2e3;
+    font-size: 1.2em;
+   
+}
+
+.profile-btn {
+    display: flex;
+    gap: 15px; 
+}
+
+
