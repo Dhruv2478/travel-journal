@@ -1,101 +1,55 @@
-/* --- Global Styles --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box; 
-    font-family: 'Arial', sans-serif;
-}
-
 body {
-    background-color: #f4f7f9; /* Light background for the whole page */
-    
+  font-family: Arial, sans-serif;
+  background: #f3f3f3;
+  margin: 0;
+  padding: 0;
 }
 
-a {
-    text-decoration: none; /* Removes underline from links */
-}
-
-/* --- Header and Navigation --- */
 .navbar {
-  background-color: #0a3142;
-  color: white;
+  background: #333;
+  color: #fff;
+  padding: 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 50px;
-}
-
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 20px;
 }
 
 .nav-links a {
   color: white;
   text-decoration: none;
-  font-size: 0.95rem;
+  margin: 0 10px;
 }
 
-.user-icon {
-  font-size: 1.3rem;
-  color: #ffffff;
-  text-decoration: none;
-  
+.container {
+  width: 80%;
+  margin: 20px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
 }
 
-/* --- Journal Content Section --- */
-.journal_content {
-    max-width: 1000px;
-    margin: 40px auto;
-    padding: 0 20px;
+.entry-form input,
+.entry-form textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
-.journal_cards {
-    display: flex;
-    gap: 30px;
-    justify-content: center; /* Center cards horizontally */
-    flex-wrap: wrap; /* Allows cards to stack on smaller screens */
+.entry-form button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-/* --- Individual Cards --- */
-.card1, .card2 {
-    flex: 1; /* Allows cards to grow and shrink */
-    min-width: 280px; /* Minimum width for the cards */
-    padding: 30px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    text-align: center;
-    transition: transform 0.3s;
-}
-
-.card1:hover, .card2:hover {
-    transform: translateY(-5px); /* Lift effect on hover */
-}
-
-.card1 h3, .card2 h3 {
-    color: #007bff;
-    margin-bottom: 10px;
-}
-
-.card1 p, .card2 p {
-    color: #777;
-    margin-bottom: 20px;
-    font-size: 0.95em;
-}
-
-/* --- Button Styling --- */
-.btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #28a745; /* Green button color */
-    color: white;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background-color 0.3s;
-}
-
-.btn:hover {
-    background-color: #1e7e34;
+.entry-card {
+  background: #fafafa;
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
 }

@@ -1,5 +1,5 @@
 <?php
-include 'dbconnection.php';
+include 'config.php';
 
 if (isset($_POST['register'])) {
     $username = $_POST['username'];
@@ -14,7 +14,7 @@ if (isset($_POST['register'])) {
 
     if ($stmt->execute()) {
         echo "<h3>Registration successful!</h3>";
-        echo "<a href='index.html'>Go to homepage</a>";
+        echo "<a href='index.php'>Go to homepage</a>";
     } else {
         echo "Error: " . $stmt->error;
     }
