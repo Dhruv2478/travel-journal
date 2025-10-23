@@ -157,10 +157,14 @@ include 'config.php';
     <section class="newsletter">
         <h2>Get Travel Inspiration Weekly!</h2>
         <p>Subscribe to our newsletter and receive the best travel stories, tips, and destination guides directly to your inbox.</p>
-        <form>
-        <input type="email" placeholder="Enter your email" required>
-        <button type="submit" class="btn">Subscribe</button>
+        
+        <form id="newsletter-form">
+            <input type="email" name="email" placeholder="Email" required>
+            <button type="submit" class="btn">Subscribe</button>
         </form>
+
+        <!-- Message box -->
+        <div id="newsletter-msg" style="display:none; margin-top:10px;"></div>
     </section>
 
     <!-- 🔹 FOOTER -->
@@ -223,7 +227,37 @@ document.addEventListener('DOMContentLoaded', function() {
     },
   });
 });
+
+document.getElementById("newsletter-form").addEventListener("submit", function(e) {
+    e.preventDefault(); // Stop normal submission
+
+    const formData = new FormData(this);
+
+    fetch("newsletter.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+        const msg = document.getElementById("newsletter-msg");
+        msg.style.display = "block";
+        msg.style.padding = "10px";
+        msg.style.borderRadius = "5px";
+
+        if (data.includes("success")) {
+            msg.style.background = "#c8ffe0";
+            msg.style.color = "#006622";
+        } else {
+            msg.style.background = "#ffcece";
+            msg.style.color = "#a00000";
+        }
+
+        msg.innerHTML = data;
+        document.getElementById("newsletter-form").reset();
+    });
+});
 </script>
+
 
 
 
