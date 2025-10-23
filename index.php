@@ -1,3 +1,8 @@
+<?php
+session_start();
+include 'config.php'; 
+?>
+
 <!-- index.php -->
 <!DOCTYPE html>
 <html lang="en">
@@ -25,15 +30,20 @@
         <li><a href="contact.php">About</a></li>
       </ul>
 
-    <div class="user-login">
+    <div class="profile-btn">
         <?php if(isset($_SESSION['username'])): ?>
-            <a href="login.php"><i class="fa-solid fa-user"></i> <?php echo htmlspecialchars($_SESSION['username']); ?></a>
-            <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
-        <?php else: ?>
-            <a href="login.php"><i class="fa-solid fa-user" ></i></a>
+
+                <a href="login.php"><i class="fa-solid fa-user"></i> <?php echo htmlspecialchars($_SESSION['username']); ?></a>
+                <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i></a>
+       
           
-        <?php endif; ?>
-    </div>
+        <?php else: ?>
+            <a href="login.php"><i class="fa-solid fa-user"></i> </a>
+            <a href="login.php"> Login</a>
+      
+        <?php 
+        endif; ?>
+    
 
     </nav>
   </header>

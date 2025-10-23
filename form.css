@@ -1,6 +1,6 @@
 body {
   font-family: 'Times New Roman', Times, serif;
-  background-image: url(bg-smalllogo.png);
+  background-image: url(images/banner.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   height:100vh;
@@ -25,6 +25,10 @@ body {
 .form-container p{
   color: white;
   margin-top: 15px;
+  
+}
+.form-container a{
+  text-decoration: none;
 }
 
 input {

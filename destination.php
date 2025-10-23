@@ -67,7 +67,12 @@ $result = $conn->query($sql);
 
                 <div class="post-footer">
                   <span class="rating">★ <?= $row['rating'] ?? 4.5 ?></span>
+              
                   <a href="post.php?id=<?= $row['id'] ?>" class="read-more">Read More</a>
+                  <button class="favourite-btn" data-post-id="<?= $row['id'] ?>" 
+                          data-user-id="<?= $_SESSION['user_id'] ?>">
+                          <i class="fa-solid fa-bookmark"></i>
+                  </button>
                 </div>
               </div>
             <?php endwhile; ?>
@@ -171,6 +176,33 @@ $result = $conn->query($sql);
       const category = active ? active.getAttribute('data-category') : 'All';
       loadPosts({ category, q });
     }
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const favButtons = document.querySelectorAll('.favourite-btn');
+
+      favButtons.forEach(btn => {
+          btn.addEventListener('click', () => {
+              const postId = btn.dataset.postId;
+              const isLiked = btn.classList.contains('liked');
+
+              fetch('like.php', {
+                  method: 'POST',
+                  headers: {'Content-Type': 'application/json'},
+                  body: JSON.stringify({postId: postId, like: !isLiked})
+              })
+              .then(res => res.json())
+              .then(data => {
+                  if (data.success) {
+                      // Toggle the visual state
+                      btn.classList.toggle('liked');
+                  } else {
+                      alert(data.message);
+                  }
+              })
+              .catch(err => console.error(err));
+          });
+      });
   });
   </script>
 </body>
