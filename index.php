@@ -62,22 +62,22 @@ include 'config.php';
   </section>
   <!-- 🔹 PRIMARY HOME SECTION -->
     <section class="home-section">
-        <h2>Your Primary home deserves love too <br>- time for a refresh</h2>
+        <h2>Your Primary home deserves love too <br>- Time for a refresh</h2>
         <div class="home-gallery">
             <div class="main-image">
-                <img src="images/banner.jpg" alt="Mauritius view">
+                <img src="images/hotel.jpg" alt="Mauritius view">
             </div>
             <div class="side-content">
                 <div class="side-images">
                     <div class="placeholder">
-                        <img src="images/hotel.jpg" alt="">
+                        <img src="images/Coron.jpg" alt="">
                         <h3>Journal</h3>
                         <p>Share your latest adventure</p>
                         <a href="journal.php" class="btn1">New Entry</a>
                         
                     </div>
                     <div class="placeholder">
-                        <img src="images/hotel.jpg" alt="">
+                        <img src="images/rome.jpg" alt="">
                         <h3>Destinations</h3>
                         <p>Discover new destinations</p>
                         <a href="destination.php" class="btn2">Discover</a>
