@@ -20,11 +20,20 @@
       <div class="logo">Travel Journal</div>
       <ul class="nav-links">
         <li><a href="index.php">Home</a></li>
-        <li><a href="#">Journal</a></li>
+        <li><a href="journal.php">Journal</a></li>
         <li><a href="destination.php">Destinations</a></li>
         <li><a href="contact.php">About</a></li>
       </ul>
-      <div class="user-icon"><i class="fa-solid fa-user"></i></div>
+
+    <div class="user-login">
+        <?php if(isset($_SESSION['username'])): ?>
+            <a href="login.php"><i class="fa-solid fa-user"></i> <?php echo htmlspecialchars($_SESSION['username']); ?></a>
+            <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+        <?php else: ?>
+            <a href="login.php"><i class="fa-solid fa-user" ></i></a>
+          
+        <?php endif; ?>
+    </div>
 
     </nav>
   </header>
@@ -34,8 +43,12 @@
     <div class="hero-content">
       <h1>Welcome to Travel Journal</h1>
       <p>Share your adventures and discover new places around the world!</p>
-      <button class="btn">Join Us Now</button>
+
+      <div class="register"> 
+        <a  href="register.html">Join us</a>
+      </div>
     </div>
+
   </section>
   <!-- 🔹 PRIMARY HOME SECTION -->
     <section class="home-section">
