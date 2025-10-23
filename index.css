@@ -183,43 +183,57 @@ body {
 }
 
 
-/* ========== FEATURED STORIES ========== */
+/* ===================================================
+   FEATURED STORIES
+=================================================== */
 .featured-section {
   text-align: center;
   padding: 20px;
-  margin-bottom: 20px;
-}
-
-.carousel-container {
-  position: relative;
+  margin-bottom: 40px;
   width: 75%;
-  margin: 30px auto;
-  
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.carousel {
-  display: flex;
-  gap: 20px;
-  overflow: hidden;
-  scroll-behavior: smooth;
+.featured-section h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #1a4e7a;
 }
 
-.card {
+.featured-section p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 30px;
+}
+.tag{
+  width: 75px;
+}
+
+/* Swiper container */
+.featured-swiper {
+  padding: 0 10px;
+}
+
+/* Swiper slides (cards) */
+.swiper-slide.card {
   background: #fff;
   border-radius: 10px;
-  border: 2px black;
+  
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  padding: 10px;
-  min-width: 300px;
+  padding: 15px;
   text-align: left;
+  display: flex;
+  flex-direction: column;
 }
 
-.card img {
+.swiper-slide.card img {
   width: 100%;
   border-radius: 10px;
+  margin-bottom: 10px;
 }
 
-.card .tag {
+.swiper-slide.card .tag {
   display: inline-block;
   margin-top: 8px;
   background: #f26c4f;
@@ -229,30 +243,61 @@ body {
   font-size: 0.8rem;
 }
 
-.card a {
+.swiper-slide.card small {
+  color: #777;
+  margin-top: 5px;
+  display: block;
+}
+
+.swiper-slide.card h3 {
+  margin: 10px 0 5px;
+  font-size: 1.2rem;
   color: #1a4e7a;
-  text-decoration: none;
-  font-weight: bold;
 }
 
-.arrow {
-  position: absolute;
-  top: 30%;
-  background: rgb(255, 255, 255);
-  border: #222;
-  font-size: 2rem;
-  cursor: pointer;
+.swiper-slide.card p {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.4;
+  flex-grow: 1;
+}
+
+/* Swiper navigation arrows */
+.swiper-button-prev,
+.swiper-button-next {
   border-radius: 50%;
-  padding: 5px 10px;
-  margin: 20px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
 }
 
-.left {
-  left: -80px;
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  color: black;
 }
 
-.right {
-  right: -80px;
+/* move arrows outside the container */
+.swiper-button-prev {
+  left: -20px; /* adjust distance from carousel */
+}
+
+.swiper-button-next {
+  right: -20px; /* adjust distance from carousel */
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .swiper-button-prev { left: -10px; }
+  .swiper-button-next { right: -10px; }
+}
+
+@media (max-width: 640px) {
+  .featured-section { width: 90%; }
 }
 
 /* ========== NEWSLETTER ========== */
