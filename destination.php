@@ -1,22 +1,24 @@
 <?php
 include 'config.php';
-
 // initial query — load all posts
 $sql = "SELECT id, title, author, DATE_FORMAT(date, '%M %e, %Y') AS formatted_date, image, excerpt, rating, category
         FROM posts
         ORDER BY date DESC";
 $result = $conn->query($sql);
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Travel Journal</title>
-  <link rel="stylesheet" href="destination.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="destination.css">
 </head>
-<!-- 🔹 NAVIGATION BAR -->
+<body>
+  <!-- 🔹 NAVIGATION BAR -->
   <header>
     <nav class="navbar">
       <div class="logo">Travel Journal</div>
@@ -30,47 +32,51 @@ $result = $conn->query($sql);
 
     </nav>
   </header>
-<body>
   <section class="secondhead">
-    <h1><i class="fas fa-compass"></i> Travel Journal</h1>
-    <p class="subtitle">Stories, tips, and inspiration from around the world</p>
-
+    <div> 
+        <h1><i class="fas fa-compass"></i> Travel Journal</h1>
+        <p class="subtitle">Stories, tips, and inspiration from around the world</p>
+    </div>
+   
     <div class="search-container">
       <input type="text" id="search-input" class="search-input" placeholder=" Search stories...">
     </div>
   </section>
 
+  
   <div class="container">
-    <div class="main-content">
-      <!-- POSTS SECTION (wrapped in #post-results) -->
-      <div class="posts-section" id="post-results">
-        <?php if ($result && $result->num_rows > 0): ?>
-          <?php while ($row = $result->fetch_assoc()): ?>
-            <div class="post">
-              <div class="post-meta">
-                <span class="author"><?= htmlspecialchars($row['author']) ?></span>
-                <span class="date"><?= htmlspecialchars($row['formatted_date']) ?></span>
-              </div>
-
-              <?php if (!empty($row['image'])): ?>
-                <div class="post-image">
-                  <img src="<?= htmlspecialchars($row['image']) ?>" alt="<?= htmlspecialchars($row['title']) ?>">
+      <div class="main-content">
+        <!-- POSTS SECTION (wrapped in #post-results) -->
+        <div class="posts-section" id="post-results">
+          <?php if ($result && $result->num_rows > 0): ?>
+            <?php while ($row = $result->fetch_assoc()): ?>
+              <div class="post">
+                <div class="post-meta">
+                  <span class="author"><?= $row['author'] ?></span>
+                  <span class="date"><?= $row['formatted_date'] ?></span>
                 </div>
-              <?php endif; ?>
 
-              <h2 class="post-title"><?= htmlspecialchars($row['title']) ?></h2>
-              <p class="post-excerpt"><?= htmlspecialchars($row['excerpt']) ?></p>
+                <?php if (!empty($row['image'])): ?>
+                  <div class="post-image">
+                    <img src="<?= $row['image'] ?>" alt="<?= $row['title'] ?>">
+                  </div>
+                <?php endif; ?>
 
-              <div class="post-footer">
-                <span class="rating">★ <?= htmlspecialchars($row['rating'] ?? 4.5) ?></span>
-                <a href="post.php?id=<?= $row['id'] ?>" class="read-more">Read More</a>
+                <h2 class="post-title"><?= $row['title'] ?></h2>
+                <p class="post-excerpt"><?= $row['excerpt'] ?></p>
+
+                <div class="post-footer">
+                  <span class="rating">★ <?= $row['rating'] ?? 4.5 ?></span>
+                  <a href="post.php?id=<?= $row['id'] ?>" class="read-more">Read More</a>
+                </div>
               </div>
-            </div>
-          <?php endwhile; ?>
-        <?php else: ?>
-          <p class="no-posts">No posts found.</p>
-        <?php endif; ?>
-      </div>
+            <?php endwhile; ?>
+          <?php else: ?>
+            <p class="no-posts">No posts found.</p>
+          <?php endif; ?>
+        </div>
+    
+
 
       <!-- SIDEBAR -->
       <aside class="sidebar">
@@ -130,6 +136,7 @@ $result = $conn->query($sql);
     .catch(err => console.error('Fetch error:', err));
   }
 
+  //Js to get element from category list and send to function loadpost to filter using ajax and then post using innerHtml
   // category click listeners
   document.querySelectorAll('.category-list li').forEach(li => {
     li.addEventListener('click', () => {
