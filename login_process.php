@@ -1,35 +1,38 @@
 <?php
 session_start();
-include 'config.php'; 
+include 'config.php';
 
-if(isset($_POST['login'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-
-    $stmt = $conn->prepare("SELECT username, password FROM users WHERE email = ?");
+    // Check if user exists
+    $sql = "SELECT * FROM users WHERE email = ?";
+    $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $email);
     $stmt->execute();
-    $stmt->store_result();
+    $result = $stmt->get_result();
 
-    
-    if($stmt->num_rows > 0) {
-        $stmt->bind_result($username, $hashedPassword);
-        $stmt->fetch();
+    if ($result->num_rows === 1) {
+        $user = $result->fetch_assoc();
 
         // Verify password
-        if(password_verify($password, $hashedPassword)) {
-            $_SESSION['username'] = $username; // store username in session
-            header("Location: index.php"); // redirect to homepage
-            exit;
+        if (password_verify($password, $user['password'])) {
+            // Store user info in session
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['username'] = $user['username'];
+
+            // Redirect to journal or home page
+            header("Location: journal.php");
+            exit();
         } else {
-            $error = "Incorrect password!";
+            echo "<p> Invalid password.</p>";
         }
     } else {
-        $error = "No account found with that email!";
+        echo "<p> No account found with that email.</p>";
     }
 
     $stmt->close();
-    $conn->close();
 }
 ?>
+
