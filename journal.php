@@ -9,25 +9,42 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
+$username = $_SESSION['username'];
 
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = htmlspecialchars($_POST['title']);
-    $content = htmlspecialchars($_POST['content']);
+    $destination = htmlspecialchars($_POST['destination']);
+    $description = htmlspecialchars($_POST['description']);
+    $created_by = htmlspecialchars($username);
 
-    $sql = "INSERT INTO entries (user_id, title, content) VALUES (?, ?, ?)";
+    // Handle image upload
+    $image_path = null;
+    if (!empty($_FILES['image']['name'])) {
+        $target_dir = "uploads/";
+        if (!is_dir($target_dir)) {
+            mkdir($target_dir, 0777, true);
+        }
+
+        $target_file = $target_dir . basename($_FILES["image"]["name"]);
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+        $allowed_types = ["jpg", "jpeg", "png", "gif"];
+        if (in_array($imageFileType, $allowed_types)) {
+            move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
+            $image_path = $target_file;
+        }
+    }
+
+    $sql = "INSERT INTO entries (user_id, title, destination, description, image, created_by) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("iss", $user_id, $title, $content);
+    $stmt->bind_param("isssss", $user_id, $title, $destination, $description, $image_path, $created_by);
     $stmt->execute();
     $stmt->close();
-}
 
-// Fetch user entries
-$sql = "SELECT * FROM entries WHERE user_id = ? ORDER BY date_posted DESC";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $user_id);
-$stmt->execute();
-$result = $stmt->get_result();
+    header("Location: my_entries.php"); // Redirect after submit
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -45,8 +62,8 @@ $result = $stmt->get_result();
     <ul class="nav-links">
       <li><a href="index.php">Home</a></li>
       <li><a href="journal.php" class="active">Journal</a></li>
-      <li><a href="destinations.php">Destinations</a></li>
-      <li><a href="gallery.php">Gallery</a></li>
+      <li><a href="destination.php">Destination</a></li>
+      <li><a href="about.php">About</a></li>
     </ul>
 
     <div class="profile-btn">
@@ -60,21 +77,19 @@ $result = $stmt->get_result();
   <div class="container">
     <h2>Share Your Adventure</h2>
 
-    <form action="journal.php" method="POST" class="entry-form">
+    <form action="journal.php" method="POST" class="entry-form" enctype="multipart/form-data">
       <input type="text" name="title" placeholder="Entry Title" required>
-      <textarea name="content" placeholder="Write about your experience..." rows="6" required></textarea>
+      <input type="text" name="destination" placeholder="Destination" required>
+      <textarea name="description" placeholder="Write about your experience..." rows="6" required></textarea>
+
+      <label for="image">Upload an Image:</label>
+      <input type="file" name="image" accept="image/*">
+
       <button type="submit">Add Entry</button>
     </form>
 
-    <h2>Your Entries</h2>
-    <div class="entries-list">
-      <?php while ($row = $result->fetch_assoc()): ?>
-        <div class="entry-card">
-          <h3><?php echo htmlspecialchars($row['title']); ?></h3>
-          <p><?php echo nl2br(htmlspecialchars($row['content'])); ?></p>
-          <small>Posted on: <?php echo $row['date_posted']; ?></small>
-        </div>
-      <?php endwhile; ?>
+    <div style="text-align: center; margin-top: 30px;">
+      <a href="my_entries.php" class="view-entries-btn">View Your Entries</a>
     </div>
   </div>
 </section>

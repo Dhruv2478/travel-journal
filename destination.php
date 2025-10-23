@@ -24,7 +24,7 @@ $result = $conn->query($sql);
       <div class="logo">Travel Journal</div>
       <ul class="nav-links">
         <li><a href="index.php">Home</a></li>
-        <li><a href="#">Journal</a></li>
+        <li><a href="journal.php">Journal</a></li>
         <li><a href="destination.php">Destinations</a></li>
         <li><a href="contact.php">About</a></li>
       </ul>
