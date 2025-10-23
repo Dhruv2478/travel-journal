@@ -213,7 +213,7 @@ body {
 .featured-section h2 {
   font-size: 2rem;
   margin-bottom: 10px;
-  color: #1a4e7a;
+  
 }
 
 .featured-section p {
@@ -280,15 +280,15 @@ body {
 /* Swiper navigation arrows */
 .swiper-button-prev,
 .swiper-button-next {
-  border-radius: 50%;
-  width: 40px;
+  width: 80px;
   height: 40px;
   display: flex;
-  align-items: center;
+  
   justify-content: center;
   top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
+  transform: translateY(-175%);
+  z-index: 999;
+  color: #fff;
 }
 
 .swiper-button-prev:hover,
@@ -298,11 +298,11 @@ body {
 
 /* move arrows outside the container */
 .swiper-button-prev {
-  left: -20px; /* adjust distance from carousel */
+  left: -30px; /* adjust distance from carousel */
 }
 
 .swiper-button-next {
-  right: -20px; /* adjust distance from carousel */
+  right: -30px; /* adjust distance from carousel */
 }
 
 /* Responsive adjustments */
