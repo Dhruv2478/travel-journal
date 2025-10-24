@@ -54,9 +54,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Your Travel Journal</title>
   <link rel="stylesheet" href="journal.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 </head>
 <body>
 <header>
+  <!-- 🔹 NAVIGATION BAR -->
   <nav class="navbar">
     <div class="logo">Travel Journal</div>
     <ul class="nav-links">
@@ -65,18 +67,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <li><a href="destination.php">Destination</a></li>
       <li><a href="about.php">About</a></li>
     </ul>
-
     <div class="profile-btn">
-      <a href="profile.php"><?php echo htmlspecialchars($_SESSION['username']); ?></a>
+      <a href="profile.php"><i class="fa-solid fa-user"></i><?php echo htmlspecialchars($_SESSION['username']); ?></a>
       <a href="logout.php">Logout</a>
     </div>
   </nav>
 </header>
-
+<!-- 🔹 Main BAR -->
 <section class="journal-content">
   <div class="container">
     <h2>Share Your Adventure</h2>
-
+    <!-- 🔹 Entry Journal Form -->
     <form action="journal.php" method="POST" class="entry-form" enctype="multipart/form-data">
       <input type="text" name="title" placeholder="Entry Title" required>
       <input type="text" name="destination" placeholder="Destination" required>
@@ -87,12 +88,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
       <button type="submit">Add Entry</button>
     </form>
-
     <div style="text-align: center; margin-top: 30px;">
       <a href="my_entries.php" class="view-entries-btn">View Your Entries</a>
     </div>
   </div>
 </section>
-
 </body>
 </html>
+

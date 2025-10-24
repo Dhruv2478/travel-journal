@@ -20,12 +20,14 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 15px 50px;
+  height: 8vh;
 }
 
 .nav-links {
   list-style: none;
   display: flex;
   gap: 20px;
+  text-decoration: none;
 }
 
 .nav-links a {
@@ -37,7 +39,7 @@ body {
 
 .nav-links a:hover,
 .nav-links a.active {
-  text-decoration: underline;
+  color: #f26c4f;
 }
 
 .profile-btn a {
@@ -53,25 +55,29 @@ body {
 .profile-btn a:hover {
   background-color: #ff885f;
 }
+.fa-user{
+  margin-right: 6px;
+}
 
 /* ========== JOURNAL SECTION ========== */
 .journal-content {
   padding: 60px 15%;
+  width: 80%;
+  margin: auto;
+  margin-top: 10px;
+  border-radius: 30px;
 }
-
 .container {
   background: #fff;
   border-radius: 15px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 40px;
+  padding: 40px; 
 }
-
 .container h2 {
   color: #0a3142;
   margin-bottom: 20px;
   text-align: center;
 }
-
 /* ========== ENTRY FORM ========== */
 .entry-form {
   display: flex;
@@ -79,7 +85,6 @@ body {
   gap: 15px;
   margin-bottom: 40px;
 }
-
 .entry-form input,
 .entry-form textarea {
   width: 100%;
@@ -89,12 +94,10 @@ body {
   font-size: 1rem;
   font-family: inherit;
 }
-
 .entry-form textarea {
   resize: vertical;
   min-height: 120px;
 }
-
 .entry-form button {
   align-self: center;
   background-color: #f26c4f;
@@ -105,13 +108,10 @@ body {
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
- 
 }
-
 .entry-form button:hover {
   background-color: #ff885f;
 }
-
 .view-entries-btn {
   display: inline-block;
   background-color: #0a3142;

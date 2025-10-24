@@ -28,10 +28,25 @@ $result = $conn->query($sql);
         <li><a href="destination.php">Destinations</a></li>
         <li><a href="contact.php">About</a></li>
       </ul>
-      <div class="user-icon"><i class="fa-solid fa-user"></i></div>
+
+    <div class="profile-btn">
+        <?php if(isset($_SESSION['username'])): ?>
+
+                <a href="login.php"><i class="fa-solid fa-user"></i> <?php echo htmlspecialchars($_SESSION['username']); ?></a>
+                <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i></a>
+       
+          
+        <?php else: ?>
+            <a href="login.php"><i class="fa-solid fa-user"></i> </a>
+            <a href="login.php"> Login</a>
+      
+        <?php 
+        endif; ?>
+    
 
     </nav>
   </header>
+
   <section class="secondhead">
     <div> 
         <h1><i class="fas fa-compass"></i> Travel Journal</h1>
@@ -39,6 +54,7 @@ $result = $conn->query($sql);
     </div>
    
     <div class="search-container">
+      <i class="fa-solid fa-magnifying-glass"></i>
       <input type="text" id="search-input" class="search-input" placeholder=" Search stories...">
     </div>
   </section>
@@ -46,7 +62,7 @@ $result = $conn->query($sql);
   
   <div class="container">
       <div class="main-content">
-        <!-- POSTS SECTION (wrapped in #post-results) -->
+        <!-- POSTS SECTION  -->
         <div class="posts-section" id="post-results">
           <?php if ($result && $result->num_rows > 0): ?>
             <?php while ($row = $result->fetch_assoc()): ?>
@@ -71,7 +87,7 @@ $result = $conn->query($sql);
                   <a href="post.php?id=<?= $row['id'] ?>" class="read-more">Read More</a>
                   <button class="favourite-btn" data-post-id="<?= $row['id'] ?>" 
                           data-user-id="<?= $_SESSION['user_id'] ?>">
-                          <i class="fa-solid fa-bookmark"></i>
+                          <i class="fa-regular fa-heart"></i>
                   </button>
                 </div>
               </div>
@@ -80,6 +96,51 @@ $result = $conn->query($sql);
             <p class="no-posts">No posts found.</p>
           <?php endif; ?>
         </div>
+        <div class="container">
+
+
+    <div class="main-content">
+        <!-- POSTS SECTION  -->
+        <div class="posts-section" id="post-results">
+            <?php 
+            if ($result && $result->num_rows > 0): 
+                while ($row = $result->fetch_assoc()): 
+            ?>
+                <div class="post">
+                    <div class="post-meta">
+                        <span class="author"><?php echo $row['author']; ?></span>
+                        <span class="date"><?php echo $row['formatted_date']; ?></span>
+                    </div>
+
+                    <?php if (!empty($row['image'])): ?>
+                        <div class="post-image">
+                            <img src="<?php echo $row['image']; ?>" alt="<?php echo $row['title']; ?>">
+                        </div>
+                    <?php endif; ?>
+
+                    <h2 class="post-title"><?php echo $row['title']; ?></h2>
+                    <p class="post-excerpt"><?php echo $row['excerpt']; ?></p>
+
+                    <div class="post-footer">
+                        <span class="rating">★ <?php echo $row['rating'] ?? 4.5; ?></span>
+                    
+                        <a href="post.php?id=<?php echo $row['id']; ?>" class="read-more">Read More</a>
+                        <button class="favourite-btn" data-post-id="<?php echo $row['id']; ?>" 
+                                data-user-id="<?php echo $_SESSION['user_id']; ?>">
+                                <i class="fa-regular fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            <?php 
+                endwhile; 
+            else: 
+            ?>
+                <p class="no-posts">No posts found.</p>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+
     
 
 
@@ -124,9 +185,9 @@ $result = $conn->query($sql);
     </div> <!-- .main-content -->
   </div> <!-- .container -->
 
-  <!-- ========== JavaScript: category filter + search ========= -->
+  <!-- ========== Use of JavaScript and AJAX to filter according to category  -->
   <script>
-  // helper: fetch and inject results
+  // Fetch and Make results
   function loadPosts(payload) {
     const formBody = Object.keys(payload).map(k => encodeURIComponent(k) + '=' + encodeURIComponent(payload[k])).join('&');
     fetch('filter.php', {
@@ -141,7 +202,7 @@ $result = $conn->query($sql);
     .catch(err => console.error('Fetch error:', err));
   }
 
-  //Js to get element from category list and send to function loadpost to filter using ajax and then post using innerHtml
+  //Js to get element from category list And Send to Function loadPost
   // category click listeners
   document.querySelectorAll('.category-list li').forEach(li => {
     li.addEventListener('click', () => {
@@ -154,7 +215,7 @@ $result = $conn->query($sql);
     });
   });
 
-  // optional: search input (press Enter or type)
+  //Search input (press Enter or type)
   const searchInput = document.getElementById('search-input');
   let searchTimeout = null;
   searchInput.addEventListener('input', () => {
@@ -168,7 +229,7 @@ $result = $conn->query($sql);
     }, 350); // debounce
   });
 
-  // optional: press Enter performs immediate search
+  //Press Enter performs immediate search
   searchInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
       const q = searchInput.value.trim();

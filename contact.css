@@ -33,12 +33,18 @@ body {
   text-decoration: none;
   font-size: 0.95rem;
 }
+.nav-links a:hover,
+.nav-links a.active {
+  color: #f26c4f;
+}
 
-.user-icon {
-  font-size: 1.3rem;
-  color: #ffffff;
-  text-decoration: none;
-  
+
+.profile-btn a {
+    color: #fff;
+    border-radius: 25px;
+    padding: 0;
+    font-weight: 500;
+    text-decoration: none;
 }
 
 /* About Header */

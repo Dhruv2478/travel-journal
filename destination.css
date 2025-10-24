@@ -20,6 +20,41 @@ body {
     margin: 0 auto;
     padding: 30px 20px;
 }
+/* ========== NAVBAR ========== */
+.navbar {
+  background-color: #0a3142;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 50px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+.nav-links a:hover,
+.nav-links a.active {
+  color: #f26c4f;
+}
+
+
+
+.profile-btn a {
+    color: #fff;
+    border-radius: 25px;
+    padding: 0;
+    font-weight: 500;
+    text-decoration: none;
+}
 
 /* ===================================================
    HERO / HEADER STYLES
@@ -130,6 +165,28 @@ h1 i {
     gap: 40px;
     margin-top: 40px;
 }
+.search-container {
+  position: relative;
+  width: 350px; /* adjust based on design */
+}
+
+.search-container i {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #555;
+  pointer-events: none; /* prevents click blocking */
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 10px 8px 35px; /* left padding for icon */
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
 
 /* ===================================================
    POSTS SECTION STYLES
@@ -208,19 +265,28 @@ h1 i {
     margin-top: 10px;
 }
 
-/* Favourite button */
 .favourite-btn {
     background: none;
     border: none;
     cursor: pointer;
-    color: #ff6347;
     font-size: 18px;
+    padding: 0;
 }
 
-/* Liked state */
-.favourite-btn.liked {
-    color: #ff4500;
+.favourite-btn i {
+    color: #ff6347;
+    transition: 0.2s;
 }
+
+/* 🔥 On hover: turn it solid + red */
+.favourite-btn:hover i {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900; /* Makes it solid */
+    content: "\f004"; /* Solid heart unicode */
+    color: red;
+}
+
+
 
 /* Read More button */
 .read-more {

@@ -2,7 +2,6 @@
 session_start();
 include 'config.php'; 
 ?>
-
 <!-- index.php -->
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +16,6 @@ include 'config.php';
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 </head>
-
 <body>
   <!-- 🔹 NAVIGATION BAR -->
   <header>
@@ -29,14 +27,12 @@ include 'config.php';
         <li><a href="destination.php">Destinations</a></li>
         <li><a href="contact.php">About</a></li>
       </ul>
-
     <div class="profile-btn">
         <?php if(isset($_SESSION['username'])): ?>
 
                 <a href="login.php"><i class="fa-solid fa-user"></i> <?php echo htmlspecialchars($_SESSION['username']); ?></a>
                 <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i></a>
-       
-          
+  
         <?php else: ?>
             <a href="login.php"><i class="fa-solid fa-user"></i> </a>
             <a href="login.php"> Login</a>
@@ -47,22 +43,21 @@ include 'config.php';
 
     </nav>
   </header>
-
   <!-- 🔹 HERO SECTION -->
   <section class="hero">
     <div class="hero-content">
       <h1>Welcome to Travel Journal</h1>
       <p>Share your adventures and discover new places around the world!</p>
-
       <div class="register"> 
         <a  href="register.html">Join us</a>
       </div>
     </div>
-
   </section>
   <!-- 🔹 PRIMARY HOME SECTION -->
     <section class="home-section">
-        <h2>Your Primary home deserves love too <br>- Time for a refresh</h2>
+        <h2>Dive into authentic travel experiences, 
+        <br> And uncover places you never knew existed. 
+        <br>Time for a refresh</h2>
         <div class="home-gallery">
             <div class="main-image">
                 <img src="images/hotel.jpg" alt="Mauritius view">
@@ -85,17 +80,18 @@ include 'config.php';
                 </div>
 
                 <div class="text-content">
-                    <h2>Feel Free to Explore our Journal Blog</h1>
+                    <h3>Turn your adventures into stories worth sharing.<br> Explore new cultures, food, and experiences beyond your comfort zone.</h3>
                 </div>
                 
             </div>
         </div>
     </section>
 
+  <!-- 🔹 Places Carousel-->
     <section class="featured-section">
         <h2>Featured Stories</h2>
-        <p>Immerse yourself in our latest travel adventures and discover your next destination</p>
-
+        <p>Immerse yourself in our latest travel adventures and 
+          discover your next destination</p>
         <!-- Swiper container -->
         <div class="swiper featured-swiper">
             <div class="swiper-wrapper">
@@ -107,7 +103,6 @@ include 'config.php';
                 <h3>Exploring the Hidden Temples of Kyoto</h3>
                 <p>Discover the serene beauty of ancient temples tucked away in the mountains of Japan.</p>
             </div>
-
             <!-- Story Card 2 -->
             <div class="swiper-slide card">
                 <img src="images/maldives.jpg" alt="Maldives">
@@ -116,7 +111,6 @@ include 'config.php';
                 <h3>Island Paradise: A Week in Maldives</h3>
                 <p>Crystal clear waters, pristine beaches, and unforgettable sunsets await in this tropical paradise.</p>
             </div>
-
             <!-- Story Card 3 -->
             <div class="swiper-slide card">
                 <img src="images/kenya.jpg" alt="Prague Street">
@@ -125,7 +119,6 @@ include 'config.php';
                 <h3>European Charm: Wandering Through Prague</h3>
                 <p>Gothic architecture, cobblestone streets, and centuries of history in the heart of Europe.</p>
             </div>
-
             <!-- Story Card 4 -->
             <div class="swiper-slide card">
                 <img src="images/egypt.jpg" alt="Egypt Pyramids">
@@ -134,7 +127,6 @@ include 'config.php';
                 <h3>Lost Wonders of Ancient Egypt</h3>
                 <p>Mysteries of the pyramids and ancient pharaohs uncovered.</p>
             </div>
-
             <!-- Story Card 5 -->
             <div class="swiper-slide card">
                 <img src="images/iceland.jpg" alt="Iceland Northern Lights">
@@ -143,9 +135,7 @@ include 'config.php';
                 <h3>Hunting Northern Lights in Iceland</h3>
                 <p>A magical experience beneath dancing skies.</p>
             </div>
-
             </div>
-
                 <!-- Navigation Arrows -->
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-button-next"></div>
@@ -153,21 +143,20 @@ include 'config.php';
     </section>
 
 
-    <!-- 🔹 NEWSLETTER SECTION -->
+  <!-- 🔹 NEWSLETTER SECTION -->
     <section class="newsletter">
         <h2>Get Travel Inspiration Weekly!</h2>
         <p>Subscribe to our newsletter and receive the best travel stories, tips, and destination guides directly to your inbox.</p>
-        
         <form id="newsletter-form">
             <input type="email" name="email" placeholder="Email" required>
             <button type="submit" class="btn">Subscribe</button>
         </form>
-
         <!-- Message box -->
         <div id="newsletter-msg" style="display:none; margin-top:10px;"></div>
     </section>
 
-    <!-- 🔹 FOOTER -->
+
+  <!-- 🔹 FOOTER -->
     <footer>
         <div class="footer-content">
         <div>
@@ -207,29 +196,29 @@ include 'config.php';
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   var featuredSwiper = new Swiper(".featured-swiper", {
-    slidesPerView: 3,       // show 3 cards
-    spaceBetween: 20,       // gap between cards
-    loop: true,             // ✅ enable infinite loop
+    slidesPerView: 3,      
+    spaceBetween: 20,       
+    loop: true,            
     navigation: {
       nextEl: ".swiper-button-next",
       prevEl: ".swiper-button-prev",
     },
     breakpoints: {
       640: {
-        slidesPerView: 1,    // mobile
+        slidesPerView: 1,    
       },
       768: {
-        slidesPerView: 2,    // medium screens
+        slidesPerView: 2,   
       },
       1084: {
-        slidesPerView: 3,    // large screens
+        slidesPerView: 3,    
       },
     },
   });
 });
 
 document.getElementById("newsletter-form").addEventListener("submit", function(e) {
-    e.preventDefault(); // Stop normal submission
+    e.preventDefault(); 
 
     const formData = new FormData(this);
 

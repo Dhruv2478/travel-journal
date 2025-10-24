@@ -9,18 +9,33 @@
     </head>
     <body>
         <!-- 🔹 NAVIGATION BAR -->
-        <header>
-            <nav class="navbar">
-            <div class="logo">Travel Journal</div>
-            <ul class="nav-links">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="#">Journal</a></li>
-                <li><a href="destination.php">Destinations</a></li>
-                <li><a href="contact.php">About</a></li>
-            </ul>
-            <div class="user-icon"><i class="fa-solid fa-user"></i></div>
-            </nav>
-        </header>
+    <header>
+        <nav class="navbar">
+        <div class="logo">Travel Journal</div>
+        <ul class="nav-links">
+            <li><a href="index.php">Home</a></li>
+            <li><a href="journal.php">Journal</a></li>
+            <li><a href="destination.php">Destinations</a></li>
+            <li><a href="contact.php">About</a></li>
+        </ul>
+
+        <div class="profile-btn">
+            <?php if(isset($_SESSION['username'])): ?>
+
+                    <a href="login.php"><i class="fa-solid fa-user"></i> <?php echo htmlspecialchars($_SESSION['username']); ?></a>
+                    <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i></a>
+        
+            
+            <?php else: ?>
+                <a href="login.php"><i class="fa-solid fa-user"></i> </a>
+                <a href="login.php"> Login</a>
+        
+            <?php 
+            endif; ?>
+        
+
+        </nav>
+    </header>
 
         <section class="about-header">
             <h1>About Travel Journal</h1>
