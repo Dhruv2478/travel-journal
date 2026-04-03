@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'config.php';
+include '../database/database_connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['username'] = $user['username'];
 
             // Redirect to journal or home page
-            header("Location: journal.php");
+            header("Location: ../php/journal.php");
             exit();
         } else {
             echo "<p> Invalid password.</p>";

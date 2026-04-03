@@ -1,10 +1,10 @@
 <?php
 session_start();
-include 'config.php';
+include '../database/database_connection.php';
 
 // Redirect to login if not logged in
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header("Location: ../php/login.php");
     exit();
 }
 
@@ -24,7 +24,7 @@ $result = $stmt->get_result();
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Entries - Travel Journal</title>
-  <link rel="stylesheet" href="journal.css">
+  <link rel="stylesheet" href="../css/journal.css">
 </head>
 <body>
 
@@ -33,14 +33,14 @@ $result = $stmt->get_result();
     <div class="logo">Travel Journal</div>
     <ul class="nav-links">
       <li><a href="index.php">Home</a></li>
-      <li><a href="journal.php">Journal</a></li>
-      <li><a href="destination.php">Destination</a></li>
-      <li><a href="about.php">About</a></li>
+      <li><a href="../php/journal.php">Journal</a></li>
+      <li><a href="../php/destination.php">Destination</a></li>
+      <li><a href="../php/about.php">About</a></li>
     </ul>
 
     <div class="profile-btn">
-      <a href="profile.php"><?php echo htmlspecialchars($_SESSION['username']); ?></a>
-      <a href="logout.php">Logout</a>
+      <a href="../php/profile.php"><?php echo htmlspecialchars($_SESSION['username']); ?></a>
+      <a href="../php/logout.php">Logout</a>
     </div>
   </nav>
 </header>

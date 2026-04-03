@@ -41,8 +41,13 @@ body {
 }
 /* ========== HERO ========== */
 .hero {
+<<<<<<< Updated upstream:index.css
   background: url('images/banner.jpg') no-repeat center/cover;
   height: 50vh;
+=======
+  background: url('/travel-journal/images/hero_image.jpg') no-repeat center/cover;
+  height: 500px;
+>>>>>>> Stashed changes:css/index.css
   display: flex;
   justify-content: center;
   align-items: center;

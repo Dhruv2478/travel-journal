@@ -3,7 +3,7 @@ session_start();
 // Simulate a logged-in user
 
 
-include 'config.php'; // your DB connection
+include '../database/database_connection.php'; // your DB connection
 
 // Get JSON data from JS
 $data = json_decode(file_get_contents('php://input'), true);

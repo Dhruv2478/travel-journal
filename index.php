@@ -22,10 +22,17 @@ include 'config.php';
     <nav class="navbar">
       <div class="logo">Travel Journal</div>
       <ul class="nav-links">
+<<<<<<< Updated upstream:index.php
         <li><a href="index.php">Home</a></li>
         <li><a href="journal.php">Journal</a></li>
         <li><a href="destination.php">Destinations</a></li>
         <li><a href="contact.php">About</a></li>
+=======
+        <li><a href="../php/index.php">Home</a></li>
+        <li><a href="../php/journal.php">Journal</a></li>
+        <li><a href="../php/destination.php">Destinations</a></li>
+        <li><a href="../php/contact.php">About</a></li>
+>>>>>>> Stashed changes:php/index.php
       </ul>
     <div class="profile-btn">
         <?php if(isset($_SESSION['username'])): ?>
@@ -49,11 +56,17 @@ include 'config.php';
       <h1>Welcome to Travel Journal</h1>
       <p>Share your adventures and discover new places around the world!</p>
       <div class="register"> 
-        <a  href="register.html">Join us</a>
+        <a  href="../html/register.html">Join us</a>
       </div>
     </div>
+<<<<<<< Updated upstream:index.php
   </section>
   <!-- 🔹 PRIMARY HOME SECTION -->
+=======
+</section>
+
+<!-- 🔹 PRIMARY HOME SECTION -->
+>>>>>>> Stashed changes:php/index.php
     <section class="home-section">
         <h2>Dive into authentic travel experiences, 
         <br> And uncover places you never knew existed. 

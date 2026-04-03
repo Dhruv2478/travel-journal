@@ -1,5 +1,5 @@
 <?php
-include 'config.php'; // connect to database
+include '../database/database_connection.php'; // connect to database
 // receive inputs from the user (via POST)
 $category = $_POST['category'] ?? 'All';
 $q = trim($_POST['q'] ?? '');

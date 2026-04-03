@@ -1,5 +1,5 @@
 <?php
-include 'config.php'; // <-- your DB connection file
+include '../database/database_connection.php'; // <-- your DB connection file
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);

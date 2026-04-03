@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title></title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <link rel="stylesheet" href="contact.css">
+        <link rel="stylesheet" href="../css/contact.css">
     </head>
     <body>
         <!-- 🔹 NAVIGATION BAR -->
@@ -38,8 +38,7 @@
     </header>
 
         <section class="about-header">
-            <h1>About Travel Journal</h1>
-            <p>Where stories and adventures come to life</p>
+          
         </section>
 
         <section class="contact-section">
