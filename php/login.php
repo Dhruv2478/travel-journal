@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="form.css">
+    <link rel="stylesheet" href="../css/form.css">
 </head>
 <body>
     <div class="form-container">
@@ -16,7 +16,7 @@
             <input type="password" name="password" placeholder="Password" required>
             <button type="submit" name="login">Login</button>
         </form>
-        <p>Don't have an account? <a href="register.html">Register here</a></p>
+        <p>Don't have an account? <a href="../html/register.html">Register here</a></p>
     </div>
 </body>
 </html>

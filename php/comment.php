@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include '../database/database_connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             VALUES ('$post_id', '$name', '$category', '$rating', '$description')";
 
     if($conn->query($sql)) {
-        // redirect destination: your post page
+        // redirect destination: post page
         $redirect_url = "post.php?id=" . $post_id;
         ?>
         
@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </head>
         <body>
             <div class="box">
-                <h2>✅ Comment Posted!</h2>
+                <h2> Comment Posted!</h2>
                 <p>Thank you for sharing your thoughts.</p>
 
                 <a href="<?= $redirect_url ?>" class="btn">Back to Post</a>

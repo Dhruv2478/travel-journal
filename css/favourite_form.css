@@ -1,0 +1,125 @@
+/* =========================================
+   FAVOURITES FORM STYLES
+   ========================================= */
+
+/* 1. Main Container for the Form */
+.form-container {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    max-width: 700px;
+    margin: 50px auto;
+    border: 1px solid #e2e8f0;
+}
+
+.form-container h2 {
+    color: #0a3142; 
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-container .subtitle {
+    color: #64748b;
+    font-size: 0.95rem;
+    margin-bottom: 25px;
+}
+
+/* 2. Input Field Styling */
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #1e293b;
+    font-size: 0.9rem;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.input-group input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* 3. Dynamic Table Styling */
+.table-wrapper {
+    margin-top: 30px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #f1f5f9;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+th {
+    background-color: #f8fafc;
+    color: #64748b;
+    font-weight: 600;
+    text-align: left;
+    padding: 12px 15px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+td {
+    padding: 12px 15px;
+    border-top: 1px solid #f1f5f9;
+    color: #334155;
+    font-size: 0.95rem;
+}
+
+/* 4. Action Buttons */
+.btn-secondary {
+    background-color: #3b82f6;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 15px;
+}
+
+.btn-secondary:hover {
+    background-color: #f1f5f9;
+    color: #1e293b;
+}
+
+.btn-submit-xml {
+    background-color: #f26c4f !important;
+    margin-top: 20px;
+}
+
+.btn-submit-xml:hover {
+    background-color: #d15a3d !important;
+}
+
+/* 5. Utility Links */
+.back-link {
+    display: inline-block;
+    margin-top: 25px;
+    text-decoration: none;
+    color: #64748b;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.back-link:hover {
+    color: #3b82f6;
+}

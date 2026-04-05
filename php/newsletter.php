@@ -1,11 +1,11 @@
 <?php
-include 'config.php'; // <-- your DB connection file
+include '../database/database_connection.php'; 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo "❌ Invalid email format.";
+        echo " Invalid email format.";
         exit;
     }
 
@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $check->store_result();
 
     if ($check->num_rows > 0) {
-        echo "⚠️ Email already subscribed!";
+        echo "Email already subscribed!";
         exit;
     }
 
@@ -25,9 +25,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("s", $email);
 
     if ($stmt->execute()) {
-        echo "✅ Subscription success!";
+        echo "Subscription success!";
     } else {
-        echo "❌ Subscription failed. Try again!";
+        echo "Subscription failed. Try again!";
     }
 
     $stmt->close();

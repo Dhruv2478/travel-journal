@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 include("../database/database_connection.php");
 
@@ -32,7 +33,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("sss", $username, $email, $password);
 
     if ($stmt->execute()) {
-        echo "<script>alert('Registration successful!'); window.location.href='../html/register.html';</script>";
+        // Get the inserted user ID
+        $user_id = $conn->insert_id;
+        
+        // Auto-login the user
+        $_SESSION['username'] = $username;
+        $_SESSION['user_id'] = $user_id;
+        
+        echo "<script>alert('Registration successful! Welcome to Travel Journal'); window.location.href='index.php';</script>";
     } else {
         echo "<script>alert('Error: " . $stmt->error . "');</script>";
     }

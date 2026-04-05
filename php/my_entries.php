@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'config.php';
+include '../database/database_connection.php';
 
 // Redirect to login if not logged in
 if (!isset($_SESSION['user_id'])) {
@@ -24,7 +24,8 @@ $result = $stmt->get_result();
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Entries - Travel Journal</title>
-  <link rel="stylesheet" href="journal.css">
+  <link rel="stylesheet" href="../css/journal.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 </head>
 <body>
 
@@ -34,13 +35,13 @@ $result = $stmt->get_result();
     <ul class="nav-links">
       <li><a href="index.php">Home</a></li>
       <li><a href="journal.php">Journal</a></li>
-      <li><a href="destination.php">Destination</a></li>
-      <li><a href="about.php">About</a></li>
+      <li><a href="destination.php">Destinations</a></li>
+      <li><a href="../php/view_favourites.php">My Favourites</a></li>
+      <li><a href="contact.php">About</a></li>
     </ul>
-
     <div class="profile-btn">
-      <a href="profile.php"><?php echo htmlspecialchars($_SESSION['username']); ?></a>
-      <a href="logout.php">Logout</a>
+      <a href="login.php"><i class="fa-solid fa-user"></i><?php echo htmlspecialchars($_SESSION['username']); ?></a>
+      <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i></a>
     </div>
   </nav>
 </header>
@@ -55,7 +56,7 @@ $result = $stmt->get_result();
           <div class="entry-card">
             <?php if (!empty($row['image'])): ?>
               <div class="entry-image">
-                <img src="<?php echo htmlspecialchars($row['image']); ?>" alt="Journal Image">
+                <img src="<?php echo htmlspecialchars($row['image']); ?>" alt="<?php echo htmlspecialchars($row['title']); ?>">
               </div>
             <?php endif; ?>
 
@@ -63,18 +64,21 @@ $result = $stmt->get_result();
               <h3><?php echo htmlspecialchars($row['title']); ?></h3>
 
               <div class="entry-meta">
-                <span><strong>Destination:</strong> <?php echo htmlspecialchars($row['destination']); ?></span>
-                <small><?php echo $row['date_posted']; ?></small>
+                <span><strong><?php echo htmlspecialchars($row['destination']); ?></strong></span>
+                <small><?php echo date('M d, Y', strtotime($row['date_posted'])); ?></small>
               </div>
 
-              <p><?php echo nl2br(htmlspecialchars($row['description'])); ?></p>
-              <small>Posted by <?php echo htmlspecialchars($row['created_by']); ?></small>
+              <p><?php echo nl2br(htmlspecialchars(substr($row['description'], 0, 150))); ?>...</p>
+              <small>by <?php echo htmlspecialchars($row['created_by']); ?></small>
             </div>
           </div>
         <?php endwhile; ?>
       </div>
     <?php else: ?>
-      <p>No entries found. Start writing your first adventure!</p>
+      <div class="no-entries">
+        <p>No journal entries yet. Start sharing your adventures!</p>
+        <a href="journal.php">Create Your First Entry</a>
+      </div>
     <?php endif; ?>
 
   </div>

@@ -5,10 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title></title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <link rel="stylesheet" href="contact.css">
+        <link rel="stylesheet" href="../css/contact.css">
     </head>
     <body>
-        <!-- 🔹 NAVIGATION BAR -->
+        <!-- NAVIGATION BAR -->
     <header>
         <nav class="navbar">
         <div class="logo">Travel Journal</div>
@@ -16,6 +16,7 @@
             <li><a href="index.php">Home</a></li>
             <li><a href="journal.php">Journal</a></li>
             <li><a href="destination.php">Destinations</a></li>
+            <li><a href="../php/view_favourites.php">My Favourites</a></li>
             <li><a href="contact.php">About</a></li>
         </ul>
 

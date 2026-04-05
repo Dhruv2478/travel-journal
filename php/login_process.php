@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'config.php';
+include '../database/database_connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];

@@ -1,6 +1,6 @@
 <?php
-// Include your database connection
-include 'config.php';
+
+include '../database/database_connection.php';
 
 // Get post ID from URL (e.g. post.php?id=1)
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -20,10 +20,10 @@ $post = $result->fetch_assoc();
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?= $post['title'] ?> | Travel Journal</title>
-  <link rel="stylesheet" href="post.css">
+  <link rel="stylesheet" href="../css/post.css">
 </head>
 <body>
-      <!-- 🔹 NAVIGATION BAR -->
+      <!-- NAVIGATION BAR -->
   <header>
     <nav class="navbar">
       <div class="logo">Travel Journal</div>
@@ -31,6 +31,7 @@ $post = $result->fetch_assoc();
         <li><a href="index.php">Home</a></li>
         <li><a href="#">Journal</a></li>
         <li><a href="destination.php">Destinations</a></li>
+        <li><a href="../php/view_favourites.php">My Favourites</a></li>
         <li><a href="contact.php">About</a></li>
       </ul>
       <div class="user-icon"><i class="fa-solid fa-user"></i></div>
