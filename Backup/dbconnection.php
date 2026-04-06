@@ -5,7 +5,7 @@
 $servername = "localhost";
 $username = "root"; 
 $password = ""; 
-$database = "traveljournal";
+$database = "travel_website";
 
 $conn = new mysqli($servername, $username, $password, $database);
 

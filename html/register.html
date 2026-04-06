@@ -8,11 +8,11 @@
 </head>
 <body>
 
-  <div style = "color:rgb(247, 246, 246);"class="form-container">
-    <h2 style="text-align: center;">Create Account</h2>
+  <div class="form-container">
+    <h2>Create Account</h2>
     <form name="registerForm" action="../php/register_process.php" method="POST" onsubmit="return validateForm()">
-      <label for="username"></label>Username<br>
-      <input type="text" id="username" name="username" placeholder="Username">
+      <label for="username">Username</label><br>
+      <input type="text" id="username" name="username" placeholder="Username"><br>
       
       <label for="email">Email</label><br>
       <input type="email" id="email" name="email" placeholder="Email"><br>
@@ -20,8 +20,8 @@
       <label for="password">Password</label><br>
       <input type="password" id="password" name="password" placeholder="Password"><br>
       
-      <button type="submit" name="register">Register</button><br>
-      <input style = "display: block; margin:auto;" type="reset" value="Clear">
+      <button type="submit" name="register">Register</button>
+      <input type="reset" value="Clear">
     </form>
   </div>
 
