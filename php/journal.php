@@ -59,26 +59,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 <header>
-  <!-- 🔹 NAVIGATION BAR -->
+  <!-- NAVIGATION BAR -->
   <nav class="navbar">
     <div class="logo">Travel Journal</div>
     <ul class="nav-links">
       <li><a href="index.php">Home</a></li>
-      <li><a href="journal.php" class="active">Journal</a></li>
-      <li><a href="destination.php">Destination</a></li>
-      <li><a href="about.php">About</a></li>
+      <li><a href="journal.php">Journal</a></li>
+      <li><a href="destination.php">Destinations</a></li>
+      <li><a href="../php/view_favourites.php">My Favourites</a></li>
+      <li><a href="contact.php">About</a></li>
     </ul>
     <div class="profile-btn">
-      <a href="profile.php"><i class="fa-solid fa-user"></i><?php echo htmlspecialchars($_SESSION['username']); ?></a>
-      <a href="logout.php">Logout</a>
+      <a href="login.php"><i class="fa-solid fa-user"></i> <?php echo htmlspecialchars($_SESSION['username']); ?></a>
+      <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i></a>
     </div>
   </nav>
 </header>
-<!-- 🔹 Main BAR -->
+<!-- Main BAR -->
 <section class="journal-content">
   <div class="container">
     <h2>Share Your Adventure</h2>
-    <!-- 🔹 Entry Journal Form -->
+    <!-- Entry Journal Form -->
     <form action="journal.php" method="POST" class="entry-form" enctype="multipart/form-data">
       <input type="text" name="title" placeholder="Entry Title" required>
       <input type="text" name="destination" placeholder="Destination" required>

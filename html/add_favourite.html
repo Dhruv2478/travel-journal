@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add to Favourites - Travel Journal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/destination.css">
+    <link rel="stylesheet" href="../css/favourite_form.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h2><i style="color: #f26c4f;"></i> Add Favourite</h2>
+            <div class="input-group">
+                <label>Destination Name</label>
+                <input type="text" id="dest_title">
+            </div>
+            <div class="input-group">
+                <label>Location / Category</label>
+                <input type="text" id="dest_location">
+            </div>
+            <div class="input-group">
+                <label>Personal Description</label>
+                <input type="text" id="dest_desc" placeholder="Why do you love this place?">
+            </div>
+
+            <form action="../php/process_favourites.php" method="POST" onsubmit="return prepareXml()">
+                <input type="hidden" id="xmlHidden" name="xmlString" value="">
+                <button type="submit" class="btn-action btn-submit-xml" style="width: 100%;">
+                    <i class="fas fa-save"></i> Save &amp; Generate XML
+                </button>
+            </form>
+            <a href="../php/destination.php" class="back-link"><i class="fas fa-arrow-left"></i> Back</a>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('title')) document.getElementById('dest_title').value = decodeURIComponent(params.get('title'));
+            if (params.get('location')) document.getElementById('dest_location').value = decodeURIComponent(params.get('location'));
+        };
+
+        function prepareXml() {
+            const t = document.getElementById('dest_title').value;
+            const l = document.getElementById('dest_location').value;
+            const d = document.getElementById('dest_desc').value;
+
+            if (!t || !l || !d) { alert("Please fill all fields!"); return false; }
+
+            let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<favourites>\n  <item>\n';
+            xml += `    <title>${t}</title>\n    <location>${l}</location>\n    <description>${d}</description>\n`;
+            xml += '  </item>\n</favourites>';
+
+            document.getElementById('xmlHidden').value = xml;
+            return true;
+        }
+    </script>
+</body>
+</html>

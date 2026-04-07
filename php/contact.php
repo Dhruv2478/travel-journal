@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="../css/contact.css">
     </head>
     <body>
-        <!-- 🔹 NAVIGATION BAR -->
+        <!-- NAVIGATION BAR -->
     <header>
         <nav class="navbar">
         <div class="logo">Travel Journal</div>
@@ -16,6 +16,7 @@
             <li><a href="index.php">Home</a></li>
             <li><a href="journal.php">Journal</a></li>
             <li><a href="destination.php">Destinations</a></li>
+            <li><a href="../php/view_favourites.php">My Favourites</a></li>
             <li><a href="contact.php">About</a></li>
         </ul>
 

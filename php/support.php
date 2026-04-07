@@ -1,6 +1,6 @@
 <?php
 // Database connection and form processing
-include '../database/database_connection.php';
+include('../database/database_connection.php');
 
 $success = '';
 $error = '';

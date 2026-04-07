@@ -22,17 +22,18 @@ include '../database/database_connection.php';
         <li><a href="../php/index.php">Home</a></li>
         <li><a href="../php/journal.php">Journal</a></li>
         <li><a href="../php/destination.php">Destinations</a></li>
+        <li><a href="../php/view_favourites.php">My Favourites</a></li>
         <li><a href="../php/contact.php">About</a></li>
       </ul>
     <div class="profile-btn">
         <?php if(isset($_SESSION['username'])): ?>
 
-                <a href="login.php"><i class="fa-solid fa-user"></i> <?php echo htmlspecialchars($_SESSION['username']); ?></a>
-                <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i></a>
+                <a href="../php/login.php"><i class="fa-solid fa-user"></i> <?php echo htmlspecialchars($_SESSION['username']); ?></a>
+                <a href="../php/logout.php"><i class="fa-solid fa-right-from-bracket"></i></a>
   
         <?php else: ?>
-            <a href="login.php"><i class="fa-solid fa-user"></i> </a>
-            <a href="login.php"> Login</a>
+            <a href="../php/login.php"><i class="fa-solid fa-user"></i> </a>
+            <a href="../php/login.php"> Login</a>
       
         <?php 
         endif; ?>
@@ -52,7 +53,7 @@ include '../database/database_connection.php';
     </div>
 </section>
 
-<!-- 🔹 PRIMARY HOME SECTION -->
+  <!-- PRIMARY HOME SECTION -->
     <section class="home-section">
         <div class="home-gallery">
 
@@ -85,7 +86,7 @@ include '../database/database_connection.php';
         </div>
     </section>
 
-  <!-- 🔹 Places Carousel-->
+  <!-- Places Carousel-->
     <section class="featured-section">
         <h2>Featured Destinations</h2>
         <p>Immerse yourself in our latest travel adventures and 

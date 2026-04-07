@@ -130,6 +130,23 @@ body {
     max-width: 400px;
 }
 
+/* Contact Image */
+.contact-image {
+    flex: 1;
+    min-width: 300px;
+    max-width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
 .info-box {
     background: #fff;
     padding: 25px;

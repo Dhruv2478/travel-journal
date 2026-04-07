@@ -1,65 +1,6 @@
 <?php
 include '../database/database_connection.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-
-    if ($id === 0) {
-        die("No entry selected.");
-    }
-
-    $xml = simplexml_load_file("../xml/my_entries.xml");
-    $entry = null;
-    foreach ($xml->entry as $e) {
-        if ((int)$e->id === $id) {
-            $entry = $e;
-            break;
-        }
-    }
-
-    if (!$entry) {
-        die("Entry not found.");
-    }
-    ?>
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title><?php echo $entry->title; ?></title>
-        <link rel="stylesheet" type="text/css" href="../css/journal.css"/>
-    </head>
-    <body>
-        <div class="container">
-            <h2><?php echo $entry->title; ?></h2>
-            <p><?php echo $entry->date; ?></p>
-            <p><?php echo $entry->location; ?></p>
-            <img src="<?php echo $entry->image; ?>" alt="<?php echo $entry->title; ?>" width="300"/>
-            <p><?php echo $entry->content; ?></p>
-
-            <h3>Leave a Comment</h3>
-            <form method="POST" action="post.php">
-                <input type="hidden" name="post_id" value="<?php echo $id; ?>"/>
-
-                <label>Name:</label>
-                <input type="text" name="name" required/><br/>
-
-                <label>Category:</label>
-                <input type="text" name="category"/><br/>
-
-                <label>Rating (1-5):</label>
-                <input type="number" name="rating" min="1" max="5" required/><br/>
-
-                <label>Comment:</label>
-                <textarea name="description" required></textarea><br/>
-
-                <button type="submit">Submit</button>
-            </form>
-        </div>
-    </body>
-    </html>
-    <?php
-    exit;
-}
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $name = trim($_POST['name']);
@@ -72,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             VALUES ('$post_id', '$name', '$category', '$rating', '$description')";
 
     if($conn->query($sql)) {
+        // redirect destination: post page
         $redirect_url = "post.php?id=" . $post_id;
         ?>
         
@@ -79,7 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <html>
         <head>
             <title>Comment Submitted</title>
-            <link rel="stylesheet" type="text/css" href="/travel-journal/css/journal.css"/>
             <meta http-equiv="refresh" content="3;url=<?= $redirect_url ?>">
             <style>
                 body {
@@ -123,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </head>
         <body>
             <div class="box">
-                <h2>✅ Comment Posted!</h2>
+                <h2> Comment Posted!</h2>
                 <p>Thank you for sharing your thoughts.</p>
 
                 <a href="<?= $redirect_url ?>" class="btn">Back to Post</a>

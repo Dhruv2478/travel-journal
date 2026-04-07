@@ -1,5 +1,5 @@
 <?php
-// Include your database connection
+
 include '../database/database_connection.php';
 
 // Get post ID from URL (e.g. post.php?id=1)
@@ -23,7 +23,7 @@ $post = $result->fetch_assoc();
   <link rel="stylesheet" href="../css/post.css">
 </head>
 <body>
-      <!-- 🔹 NAVIGATION BAR -->
+      <!-- NAVIGATION BAR -->
   <header>
     <nav class="navbar">
       <div class="logo">Travel Journal</div>
@@ -31,6 +31,7 @@ $post = $result->fetch_assoc();
         <li><a href="index.php">Home</a></li>
         <li><a href="#">Journal</a></li>
         <li><a href="destination.php">Destinations</a></li>
+        <li><a href="../php/view_favourites.php">My Favourites</a></li>
         <li><a href="contact.php">About</a></li>
       </ul>
       <div class="user-icon"><i class="fa-solid fa-user"></i></div>
