@@ -26,14 +26,14 @@
                     $files = glob($dir . "*.xml");
                     if (count($files) > 0) {
                         $xsl = new DOMDocument();
-                        $xsl->load('../xslt/favourites.xsl');
+                        $xsl->load('../xsl/favourites.xsl');
                         $proc = new XSLTProcessor();
                         $proc->importStyleSheet($xsl);
 
                         foreach ($files as $file) {
                             $xml = new DOMDocument();
                             $xml->load($file);
-                            // This echo inserts the <tr>...</tr> from XSLT
+
                             echo $proc->transformToXML($xml);
                         }
                     } else {

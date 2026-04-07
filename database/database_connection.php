@@ -2,25 +2,16 @@
 // ---------------------------------------------
 // Database Configuration
 // ---------------------------------------------
-$host = "127.0.0.1";       // Database host
+$host = "localhost";       // Database host
 $user = "root";            // Database username
 $pass = "";                // Database password
-
-
-$dbname = "travel_journal";
-$port = 3307;              // Database port
-
-
-
+$dbname = "travel_website"; // Database name
 
 // Create connection
-$conn = new mysqli($host, $user, $pass, $dbname, $port);
+$conn = new mysqli($host, $user, $pass, $dbname);
 
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 ?>
-
-
-

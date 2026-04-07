@@ -1,12 +1,34 @@
 <?php
 session_start();
-include '../database/database_connection.php';
 
-// Load all posts initially
-$sql = "SELECT id, title, author, DATE_FORMAT(date, '%M %e, %Y') AS formatted_date, image, excerpt, rating, category 
-        FROM posts 
-        ORDER BY date DESC";
-$result = $conn->query($sql);
+/**
+ * XML DATA LOADING & VALIDATION
+ */
+$xmlFile = '../xml/destinations.xml';
+$xsdFile = '../xsd/destinations.xsd';
+$xslFile = '../xsl/destinations.xsl';
+
+$xml = new DOMDocument();
+$xml->load($xmlFile);
+
+// 1. Validate XML against XSD before proceeding
+$isValid = @$xml->schemaValidate($xsdFile); 
+
+/**
+ * XSLT TRANSFORMATION
+ */
+if ($isValid) {
+    $xsl = new DOMDocument();
+    $xsl->load($xslFile);
+
+    $proc = new XSLTProcessor();
+    $proc->importStyleSheet($xsl);
+    
+    // Transform the XML into the HTML posts
+    $transformedOutput = $proc->transformToXML($xml);
+} else {
+    $transformedOutput = "<p class='no-posts'>Error: XML data does not match the schema.</p>";
+}
 ?>
 
 <!DOCTYPE html>
@@ -54,40 +76,7 @@ $result = $conn->query($sql);
         <div class="main-content">
             
             <div class="posts-section" id="post-results">
-                <?php if ($result && $result->num_rows > 0): ?>
-                    <?php while ($row = $result->fetch_assoc()): ?>
-                        <div class="post">
-                            <div class="post-meta">
-                                <span class="author"><i class="fa-solid fa-user"></i> <?= htmlspecialchars($row['author']) ?></span>
-                                <span class="date"><i class="fa-solid fa-calendar"></i> <?= $row['formatted_date'] ?></span>
-                            </div>
-
-                            <?php if (!empty($row['image'])): ?>
-                                <div class="post-image">
-                                    <img src="<?= htmlspecialchars($row['image']) ?>" alt="<?= htmlspecialchars($row['title']) ?>">
-                                </div>
-                            <?php endif; ?>
-
-                            <h2 class="post-title"><?= htmlspecialchars($row['title']) ?></h2>
-                            <p class="post-excerpt"><?= htmlspecialchars($row['excerpt']) ?></p>
-
-                            <div class="post-footer">
-                                <span class="rating">★ <?= $row['rating'] ?? 4.5 ?></span>
-                                
-                                <div class="button-group">
-                                    <a href="post.php?id=<?= $row['id'] ?>" class="btn-action">Read More</a>
-                                    
-                                    <a href="../html/add_favourite.html?title=<?= urlencode($row['title']) ?>&location=<?= urlencode($row['category']) ?>" 
-                                       class="btn-action">
-                                       Add To Favourites
-                                    </a>
-                                </div>
-                            </div>  
-                        </div>
-                    <?php endwhile; ?>
-                <?php else: ?>
-                    <p class="no-posts">No destinations found.</p>
-                <?php endif; ?>
+                <?= $transformedOutput ?>
             </div>
 
             <aside class="sidebar">

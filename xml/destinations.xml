@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<destinations>
+    <destination id="1">
+        <title>Exploring the Swiss Alps</title>
+        <author>Jane Doe</author>
+        <date>2026-03-15</date>
+        <type>Travel</type>
+        <category>Adventure</category>
+        <region>Europe</region>
+        <excerpt>A breathtaking journey through the snow-capped peaks of Switzerland.</excerpt>
+        <description>The Swiss Alps offer some of the most stunning landscapes in the world. From skiing in Zermatt to hiking in Lauterbrunnen...</description>
+        <image>../images/swiss.jpg</image>
+        <rating>4.9</rating>
+    </destination>
+    <destination id="2">
+        <title>Street Food in Bangkok</title>
+        <author>John Smith</author>
+        <date>2026-02-10</date>
+        <type>Culinary</type>
+        <category>Food &amp; Drink</category>
+        <region>Asia</region>
+        <excerpt>Exploring the vibrant and spicy world of Thai street food markets.</excerpt>
+        <description>Bangkok is a food lover's paradise. The aromas of Pad Thai and Mango Sticky Rice fill the air at every corner...</description>
+        <image>../images/bangkok.jpg</image>
+        <rating>4.7</rating>
+    </destination>
+    <destination id="3">
+        <title>The Colosseum at Sunset</title>
+        <author>Maria Rossi</author>
+        <date>2026-01-05</date>
+        <type>History</type>
+        <category>Culture</category>
+        <region>Europe</region>
+        <excerpt>An evening walk through the ancient ruins of the Roman Empire.</excerpt>
+        <description>Walking through the Roman Forum and standing before the Colosseum is a humbling experience that transports you back in time...</description>
+        <image>../images/rome.jpg</image>
+        <rating>4.8</rating>
+    </destination>
+    <destination id="4">
+        <title>Neon Nights in Tokyo</title>
+        <author>Hiroshi Tanaka</author>
+        <date>2026-04-01</date>
+        <type>Urban</type>
+        <category>Photography</category>
+        <region>Asia</region>
+        <excerpt>Capturing the electric energy and hidden alleys of Shinjuku at night.</excerpt>
+        <description>Tokyo is a city that never sleeps. From the towering skyscrapers of Shibuya to the quiet, 
+        lantern-lit izakayas of Golden Gai, every corner offers a perfect shot for photographers...</description>
+        <image>../images/tokyo.jpg</image>
+        <rating>4.9</rating>
+    </destination>
+    <destination id="5">
+        <title>Safari in the Serengeti</title>
+        <author>David Atten</author>
+        <date>2026-03-20</date>
+        <type>Nature</type>
+        <category>Adventure</category>
+        <region>Africa</region>
+        <excerpt>Witnessing the great migration across the vast plains of Tanzania.</excerpt>
+        <description>Nothing compares to the raw beauty of the Serengeti. 
+        Waking up to the sound of lions in the distance and watching thousands of wildebeest cross the Mara River is truly life-changing...</description>
+        <image>../images/serengeti.jpg</image>
+        <rating>5.0</rating>
+    </destination>
+</destinations>
