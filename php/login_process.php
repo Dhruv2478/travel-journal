@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['username'] = $user['username'];
 
             // Redirect to journal or home page
-            header("Location: journal.php");
+            header("Location: ../php/journal.php");
             exit();
         } else {
             echo "<p> Invalid password.</p>";

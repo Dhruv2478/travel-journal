@@ -39,8 +39,7 @@
     </header>
 
         <section class="about-header">
-            <h1>About Travel Journal</h1>
-            <p>Where stories and adventures come to life</p>
+          
         </section>
 
         <section class="contact-section">

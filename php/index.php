@@ -51,7 +51,7 @@ include '../database/database_connection.php';
         <a  href="../html/register.html">Join us</a>
       </div>
     </div>
-  </section>
+</section>
 
   <!-- PRIMARY HOME SECTION -->
     <section class="home-section">
@@ -129,7 +129,7 @@ include '../database/database_connection.php';
                 </div>
                 <!-- Story Card 5 -->
                 <div class="carousel-slide card">
-                    <img src="../images/iceland.jpg" alt="Iceland Northern Lights">
+                    <img src="../images/aurora-borealis.jpg" alt="Iceland Northern Lights">
                     <span class="tag">Nature</span>
                     <small>August 25, 2025</small>
                     <h3>Hunting Northern Lights in Iceland</h3>

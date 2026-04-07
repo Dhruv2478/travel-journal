@@ -44,6 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     header("Location: my_entries.php"); // Redirect after submit
     exit();
+
 }
 ?>
 

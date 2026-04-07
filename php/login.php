@@ -6,12 +6,12 @@
     <link rel="stylesheet" href="../css/form.css">
 </head>
 <body>
-    <div class="form-container">
+    <div style = "text-align: center;" class="form-container">
         <h2>Login</h2>
 
         <?php if(isset($error)) echo "<p style='color:red;'>$error</p>"; ?>
 
-        <form action="login_process.php" method="POST">
+        <form action="../php/login_process.php" method="POST">
             <input type="email" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Password" required>
             <button type="submit" name="login">Login</button>

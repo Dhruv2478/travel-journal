@@ -49,10 +49,7 @@ body {
 
 /* About Header */
 .about-header {
-    background: linear-gradient(135deg, #7dc9b3, #2b7a8b);
-    color: white;
-    text-align: center;
-    padding: 80px 20px;
+  
     position: relative;
     overflow: hidden;
     
@@ -64,11 +61,8 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background-image: url('images/banner.jpg'); /* replace with your image */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    height: 170%;
+ 
 }
 
 .about-header h1 {
@@ -82,12 +76,12 @@ body {
     font-size: 1.2rem;
     max-width: 600px;
     margin: 0 auto;
-    position: relative;
+    position: top;
 }
 
 /* Contact Section */
 .contact-section {
-    padding: 80px 20px;
+    padding: 10px 20px;
     background: #fff;
 }
 
@@ -95,7 +89,7 @@ body {
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 15px;
-    color: #00388c;
+    color: #7dc9b3;
     position: relative;
 }
 
@@ -105,14 +99,14 @@ body {
     width: 80px;
     height: 3px;
     background: #7dc9b3;
-    margin: 10px auto;
+    margin: 5px auto;
     border-radius: 2px;
 }
 
 .contact-section > p {
     text-align: center;
     max-width: 700px;
-    margin: 0 auto 40px;
+    margin: 0 auto 30px;
     color: #666;
     font-size: 1.1rem;
 }
