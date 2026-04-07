@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -46,21 +49,6 @@
             <h2>Get In Touch</h2>
             <p>Have a question, suggestion, or just want to say hello? I'd love to hear from you!</p>
 
-            <!-- Display success/error messages -->
-            <?php if (!empty($success)): ?>
-                <div class="success-message">
-                    <i class="fas fa-check-circle"></i>
-                    <?php echo $success; ?>
-                </div>
-            <?php endif; ?>
-
-            <?php if (!empty($error)): ?>
-                <div class="error-message">
-                    <i class="fas fa-exclamation-circle"></i>
-                    <?php echo $error; ?>
-                </div>
-            <?php endif; ?>
-
             <div class="contact-container">
                 <div class="contact-info">
                     <div class="info-box">
@@ -93,36 +81,74 @@
                     </div>
                 </div>
 
-                <form class="contact-form" action="support.php" method="POST">
+                <form id="contact-form" class="contact-form" action="#" method="POST" onsubmit="return false;">
                     <div class="form-group">
-                        <input type="text" name="name" placeholder="Your Name"
-                            value="<?php echo isset($name) ? $name : ''; ?>" required>
+                        <input type="text" id="userName" name="name" placeholder="Your Name"
+                            value="" required>
                         <i class="fas fa-user input-icon"></i>
                     </div>
 
                     <div class="form-group">
-                        <input type="email" name="email" placeholder="Your Email"
-                            value="<?php echo isset($email) ? $email : ''; ?>" required>
+                        <input type="email" id="userEmail" name="email" placeholder="Your Email"
+                            value="" required>
                         <i class="fas fa-envelope input-icon"></i>
                     </div>
 
                     <div class="form-group">
                         <input type="text" name="subject" placeholder="Subject"
-                            value="<?php echo isset($subject) ? $subject : ''; ?>" required>
+                            value="" required>
                         <i class="fas fa-tag input-icon"></i>
                     </div>
-
                     <div class="form-group">
-                        <textarea name="message" placeholder="Your Message" required><?php echo isset($message) ? $message : ''; ?></textarea>
+                        <textarea name="message" placeholder="Your Message" required></textarea>
                         <i class="fas fa-comment input-icon textarea-icon"></i>
                     </div>
-
-                    <button type="submit" class="submit-btn">
+                    <button id="submit-btn" type="button" class="submit-btn" onclick="ajaxGET()">
                         <span>Send Message</span>
                         <i class="fas fa-paper-plane"></i>
                     </button>
+                    <div id="message" style="display:none;"></div>
                 </form>
             </div>
         </section>
+
+        <script>
+            function ajaxGET() {
+                var httpRequest = new XMLHttpRequest();
+                var nameValue = document.getElementById('userName').value;
+                var emailValue = document.getElementById('userEmail').value;
+                var messageBox = document.getElementById('message');
+
+                if (!nameValue || !emailValue) {
+                    messageBox.style.display = 'flex';
+                    messageBox.className = 'error-message';
+                    messageBox.innerHTML = '<i class="fas fa-exclamation-circle"></i>Please enter your name and email.';
+                    return;
+                }
+
+                httpRequest.open('GET', 'get_message.php?name=' + encodeURIComponent(nameValue) + '&userEmail=' + encodeURIComponent(emailValue), true);
+                httpRequest.onreadystatechange = function () {
+                    if (httpRequest.readyState === 4) {
+                        if (httpRequest.status === 200) {
+                            var xmlResponse = httpRequest.responseXML;
+                            var name = xmlResponse.getElementsByTagName('name')[0].textContent;
+                            var email = xmlResponse.getElementsByTagName('email')[0].textContent;
+                            var response = 'Hello ' + name + ' Thank you for your message.<br>We will get back to you ASAP via your Email ' + email + '.';
+                            messageBox.style.display = 'flex';
+                            messageBox.className = 'success-message';
+                            messageBox.innerHTML = '<i class="fas fa-check-circle"></i>' + response;
+
+                            setTimeout(function () {
+                                messageBox.innerHTML = '';
+                                messageBox.style.display = 'none';
+                            }, 5000);
+                        } else {
+                            alert('An error has occurred making the request');
+                        }
+                    }
+                };
+                httpRequest.send(null);
+            }
+        </script>
     </body>
 </html>

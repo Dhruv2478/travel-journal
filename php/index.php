@@ -148,9 +148,9 @@ include '../database/database_connection.php';
     <section class="newsletter">
         <h2>Get Travel Inspiration Weekly!</h2>
         <p>Subscribe to our newsletter and receive the best travel stories, tips, and destination guides directly to your inbox.</p>
-        <form id="newsletter-form">
-            <input type="email" name="email" placeholder="Email" required>
-            <button type="submit" class="btn">Subscribe</button>
+        <form id="newsletter-form" onsubmit="return false;">
+            <input type="email" id="newsletter-email" name="email" placeholder="Email" required>
+            <button type="button" class="btn" onclick="ajaxPOST()">Subscribe</button>
         </form>
         <!-- Message box -->
         <div id="newsletter-msg" style="display:none; margin-top:10px;"></div>
@@ -237,34 +237,45 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Newsletter Form
-document.getElementById("newsletter-form").addEventListener("submit", function(e) {
-    e.preventDefault(); 
-
-    const formData = new FormData(this);
-
-    fetch("newsletter.php", {
-        method: "POST",
-        body: formData
-    })
-    .then(response => response.text())
-    .then(data => {
-        const msg = document.getElementById("newsletter-msg");
+function ajaxPOST() {
+    var httpRequest = new XMLHttpRequest();
+    var email = document.getElementById("newsletter-email").value;
+    var msg = document.getElementById("newsletter-msg")
+    if (!email) {
         msg.style.display = "block";
         msg.style.padding = "10px";
         msg.style.borderRadius = "5px";
+        msg.style.background = "#ffcece";
+        msg.style.color = "#a00000";
+        msg.innerHTML = "Please enter an email address.";
+        return;
+    }
+    httpRequest.open("POST", "newsletter.php", true);
+    httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    httpRequest.onreadystatechange = function () {
+        if (httpRequest.readyState === 4) {
+            if (httpRequest.status === 200) {
+                var responseText = httpRequest.responseText;
+                msg.style.display = "block";
+                msg.style.padding = "10px";
+                msg.style.borderRadius = "5px";
+                if (responseText.toLowerCase().includes("subscribed successfully")) {
+                    msg.style.background = "#c8ffe0";
+                    msg.style.color = "#006622";
+                } else {
+                    msg.style.background = "#ffcece";
+                    msg.style.color = "#a00000";
+                }
 
-        if (data.includes("success")) {
-            msg.style.background = "#c8ffe0";
-            msg.style.color = "#006622";
-        } else {
-            msg.style.background = "#ffcece";
-            msg.style.color = "#a00000";
+                msg.innerHTML = responseText;
+                document.getElementById("newsletter-form").reset();
+            } else {
+                alert("An error has occurred making the request");
+            }
         }
-
-        msg.innerHTML = data;
-        document.getElementById("newsletter-form").reset();
-    });
-});
+    };
+    httpRequest.send("email=" + encodeURIComponent(email));
+}
 </script>
 
 
