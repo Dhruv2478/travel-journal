@@ -118,21 +118,18 @@ if ($isValid) {
         const q = document.getElementById('search-input').value;
         const activeLi = document.querySelector('.category-list li.active');
         const category = activeLi ? activeLi.getAttribute('data-category') : 'All';
-
-        const params = new URLSearchParams();
-        params.append('category', category);
-        params.append('q', q);
-
-        fetch('filter.php', {
-            method: 'POST',
-            body: params
-        })
+        // Call the search web service via SOAP client
+        const webServiceUrl = '../search-service/client.php?category=' + encodeURIComponent(category) + '&query=' + encodeURIComponent(q);
+        fetch(webServiceUrl)
         .then(res => res.text())
         .then(html => {
             document.getElementById('post-results').innerHTML = html;
+        })
+        .catch(error => {
+            console.error('Error calling search service:', error);
+            document.getElementById('post-results').innerHTML = '<p class="no-posts">Error loading results. Please try again.</p>';
         });
     }
-
     document.querySelectorAll('.category-list li').forEach(li => {
         li.addEventListener('click', function() {
             document.querySelectorAll('.category-list li').forEach(el => el.classList.remove('active'));
