@@ -1,100 +1,119 @@
-<?php
-session_start();
-include '../database/database_connection.php';
-
-// Redirect to login if not logged in
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
-}
-
-$user_id = $_SESSION['user_id'];
-$username = $_SESSION['username'];
-
-// Handle form submission
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $title = htmlspecialchars($_POST['title']);
-    $destination = htmlspecialchars($_POST['destination']);
-    $description = htmlspecialchars($_POST['description']);
-    $created_by = htmlspecialchars($username);
-
-    // Handle image upload
-    $image_path = null;
-    if (!empty($_FILES['image']['name'])) {
-        $target_dir = "uploads/";
-        if (!is_dir($target_dir)) {
-            mkdir($target_dir, 0777, true);
-        }
-
-        $target_file = $target_dir . basename($_FILES["image"]["name"]);
-        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-
-        $allowed_types = ["jpg", "jpeg", "png", "gif"];
-        if (in_array($imageFileType, $allowed_types)) {
-            move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
-            $image_path = $target_file;
-        }
-    }
-
-    $sql = "INSERT INTO entries (user_id, title, destination, description, image, created_by) VALUES (?, ?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("isssss", $user_id, $title, $destination, $description, $image_path, $created_by);
-    $stmt->execute();
-    $stmt->close();
-
-    header("Location: my_entries.php"); // Redirect after submit
-    exit();
-
-}
-?>
-
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Travel Journal</title>
-  <link rel="stylesheet" href="../css/journal.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Travel Journal - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/journal.css">
+    <style>
+        .dashboard-container {
+            max-width: 900px;
+            margin: 80px auto;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .welcome-section {
+            margin-bottom: 50px;
+        }
+
+        .welcome-section h1 {
+            font-size: 2.5rem;
+            color: #0a3142;
+            margin-bottom: 10px;
+        }
+
+        .welcome-section p {
+            color: #64748b;
+            font-size: 1.1rem;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .menu-card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            border-color: #f26c4f;
+        }
+
+        .icon-box {
+            width: 80px;
+            height: 80px;
+            background: rgba(242, 108, 79, 0.1);
+            color: #f26c4f;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .menu-card h3 {
+            color: #0a3142;
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+
+        .menu-card p {
+            color: #64748b;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+    </style>
 </head>
 <body>
-<header>
-  <!-- NAVIGATION BAR -->
-  <nav class="navbar">
-    <div class="logo">Travel Journal</div>
-    <ul class="nav-links">
-      <li><a href="index.php">Home</a></li>
-      <li><a href="journal.php">Journal</a></li>
-      <li><a href="destination.php">Destinations</a></li>
-      <li><a href="../php/view_favourites.php">My Favourites</a></li>
-      <li><a href="contact.php">About</a></li>
-    </ul>
-    <div class="profile-btn">
-      <a href="login.php"><i class="fa-solid fa-user"></i> <?php echo htmlspecialchars($_SESSION['username']); ?></a>
-      <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i></a>
-    </div>
-  </nav>
-</header>
-<!-- Main BAR -->
-<section class="journal-content">
-  <div class="container">
-    <h2>Share Your Adventure</h2>
-    <!-- Entry Journal Form -->
-    <form action="journal.php" method="POST" class="entry-form" enctype="multipart/form-data">
-      <input type="text" name="title" placeholder="Entry Title" required>
-      <input type="text" name="destination" placeholder="Destination" required>
-      <textarea name="description" placeholder="Write about your experience..." rows="6" required></textarea>
 
-      <label for="image">Upload an Image:</label>
-      <input type="file" name="image" accept="image/*">
+    <div class="dashboard-container">
+        <div class="welcome-section">
+            <h1>Travel Journal Hub</h1>
+            <p>Welcome back! What would you like to do with your memories today?</p>
+        </div>
 
-      <button type="submit">Add Entry</button>
-    </form>
-    <div style="text-align: center; margin-top: 30px;">
-      <a href="my_entries.php" class="view-entries-btn">View Your Entries</a>
+        <div class="card-grid">
+            <a href="../html/add_entries.html" class="menu-card">
+                <div class="icon-box">
+                    <i class="fas fa-pen-fancy"></i>
+                </div>
+                <h3>Write New Entry</h3>
+                <p>Record a new adventure, destination, and your personal experience.</p>
+            </a>
+
+            <a href="view_entries.php" class="menu-card">
+                <div class="icon-box">
+                    <i class="fas fa-th-list"></i>
+                </div>
+                <h3>View My Journal</h3>
+                <p>Browse through all your saved travel stories and generated XML data.</p>
+            </a>
+        </div>
+
+        <div style="margin-top: 50px;">
+            <a href="index.php" class="back-link">
+                <i class="fas fa-home"></i> Back to Main Site
+            </a>
+        </div>
     </div>
-  </div>
-</section>
+
 </body>
 </html>
-

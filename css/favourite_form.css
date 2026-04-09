@@ -91,14 +91,13 @@ td {
 /* 4. Action Buttons */
 .btn-secondary {
     background-color: #3b82f6;
-    color: #475569;
+    color: #d15a3d;
     border: 1px solid #e2e8f0;
     margin-bottom: 15px;
 }
 
 .btn-secondary:hover {
-    background-color: #f1f5f9;
-    color: #1e293b;
+    background-color: #d15a3d;
 }
 
 .btn-submit-xml {

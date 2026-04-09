@@ -1,57 +1,104 @@
+
 body {
-  font-family: 'Times New Roman', Times, serif;
-  background-image: url('/travel-journal/images/login.png');
-  background-repeat: no-repeat;
-  background-size: cover;
-  height:90vh;
+  margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.form-container h2{
-  color: white;
-  margin-bottom: 20px;
-}
-.form-container {
-  background: rgb(103, 106, 103);
-  padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgb(8, 8, 8);
-  width: 300px;
-  text-align: left;
-  opacity: 89%;
+  min-height: 100vh;
 }
 
-.form-container p{
-  color: white;
-  margin-top: 15px;
-  
+body.login-bg {
+  font-family: 'Times New Roman', Times, serif;
+  background-image: url('../images/login.png'); 
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
-.form-container a{
-  text-decoration: none;
+
+.form-container {
+  background-color: rgba(10, 49, 66, 0.95);
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  width: 350px; 
+  text-align: center;
+  opacity: 0.95;
+  color: white;
+}
+
+.form-container h2 {
+  margin-top: 0;
+  margin-bottom: 30px; 
+}
+
+body.register-bg {
+  font-family: 'Segoe UI', sans-serif;
+  background-image: url('../images/login.png'); 
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  margin: 0;
+}
+
+.error-msg {
+  color: #ff4d4d;
+  font-size: 0.7rem;
+  font-weight: bold;
+  display: block;
+  margin-top: -12px; 
+  margin-bottom: 10px;
+  text-align: left;
+  padding-left: 2px;
 }
 
 input {
-  width: 90%;
-  padding: 10px;
-  margin: 10px 0;
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 6px;
+  box-sizing: border-box;
 }
 
-button { 
-  background-color: #1495ff;
-  color: white;
+input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px; 
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+button {
+  width: 80%;
+  padding: 12px;
   border: none;
-  padding: 10px 20px;
   border-radius: 6px;
   cursor: pointer;
+  font-weight: bold;
+  background-color: #64748b;
+  color: white;
   transition: 0.3s;
-  display: block;
-  margin:auto;
 }
 
-
 button:hover {
-  background-color: #2db3d1;
+  background-color: #3b82f6;
+}
+
+.form-container p {
+  margin-top: 20px;
+}
+
+.form-container a {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: bold;
 }

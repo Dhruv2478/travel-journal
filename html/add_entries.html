@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Journal Entry - Travel Journal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/entries.css">
+</head>
+<body>
+<div class="form-container">
+    <h2>Add Journal Entry</h2>
+
+    <div class="input-group">
+        <label>Entry Title</label>
+        <input type="text" id="entry_title" placeholder="Give your entry a title">
+    </div>
+
+    <div class="input-group">
+        <label>Destination</label>
+        <input type="text" id="entry_destination" placeholder="Where did you go?">
+    </div>
+
+    <div class="input-group">
+        <label>Your Experience</label>
+        <textarea id="entry_description" placeholder="Write about your experience..."></textarea>
+    </div>
+
+    <form action="../php/process_entry.php" method="POST" onsubmit="return prepareXml()">
+        <input type="hidden" id="xmlHidden" name="xmlString" value="">
+        <button type="submit" class="btn-submit-xml">
+            <i class="fas fa-save"></i> Save &amp; Generate XML
+        </button>
+    </form>
+
+    <a href="../php/journal.php" class="back-link">
+        <i class="fas fa-arrow-left"></i> Back to Journal
+    </a>
+</div>
+
+    <script>
+function prepareXml() {
+    const t = document.getElementById('entry_title').value;
+    const d = document.getElementById('entry_destination').value;
+    const e = document.getElementById('entry_description').value;
+
+    if (!t || !d || !e) { alert("Fill all fields"); return false; }
+
+    // This structure matches the XSD above perfectly
+    let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<entries>\n  <entry>\n';
+    xml += `    <title>${t}</title>\n`;
+    xml += `    <destination>${d}</destination>\n`;
+    xml += `    <description>${e}</description>\n`;
+    xml += '  </entry>\n</entries>';
+
+    document.getElementById('xmlHidden').value = xml;
+    return true;
+}
+    </script>
+</body>
+</html>

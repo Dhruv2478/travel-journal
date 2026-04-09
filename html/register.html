@@ -2,61 +2,89 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>User Registration</title>
   <link rel="stylesheet" href="../css/form.css">
 </head>
-<body>
+<body class="register-bg">
 
   <div class="form-container">
     <h2>Create Account</h2>
     <form name="registerForm" action="../php/register_process.php" method="POST" onsubmit="return validateForm()">
-      <label for="username">Username</label><br>
-      <input type="text" id="username" name="username" placeholder="Username"><br>
       
-      <label for="email">Email</label><br>
-      <input type="email" id="email" name="email" placeholder="Email"><br>
+      <input type="text" id="username" name="username" placeholder="Username" onkeyup="checkField('username')">
+      <span id="username-error" class="error-msg"></span>
       
-      <label for="password">Password</label><br>
-      <input type="password" id="password" name="password" placeholder="Password"><br>
+      <input type="email" id="email" name="email" placeholder="Email" onkeyup="checkField('email')">
+      <span id="email-error" class="error-msg"></span>
       
-      <button type="submit" name="register">Register</button>
-      <input type="reset" value="Clear">
+      <input type="password" id="password" name="password" placeholder="Password">
+      <span class="error-msg"></span>
+      
+      <div class="button-group">
+        <button type="submit" name="register">Register</button>
+        <input type="reset" value="Clear" onclick="clearErrors()">
+      </div>
     </form>
+    <p>Already have an account? <a href="../php/login.php">Login here</a></p>
   </div>
 
+<script>
+function checkField(fieldName) {
+  let fieldValue = document.getElementById(fieldName).value;
+  let errorSpan = document.getElementById(fieldName + "-error");
+
+  if (fieldValue.length < 3) {
+    errorSpan.innerHTML = "";
+    return;
+  }
+
+  let xhr = new XMLHttpRequest();
+  xhr.open("GET", "../php/check_user.php?field=" + fieldName + "&value=" + encodeURIComponent(fieldValue), true);
   
-  <script>
-    function validateForm() {
-      let username = document.forms["registerForm"]["username"].value;
-      if (username == "") {
-        alert("Username must be filled out");
-        return false;
-      } else if (username.length < 4) {
-        alert("Username must be at least 4 characters long");
-        return false;
-      }
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      let xmlDoc = xhr.responseXML;
+      
+      if (xmlDoc) {
 
-      let email = document.forms["registerForm"]["email"].value;
-      if (email == "") {
-        alert("Email must be filled out");
-        return false;
-      } else if (!email.includes("@")) {
-        alert("Email must contain @");
-        return false;
+        let statusCodeTag = xmlDoc.getElementsByTagName("status_code")[0];
+        let errorMessageTag = xmlDoc.getElementsByTagName("error_message")[0];
+ 
+        if (statusCodeTag && errorMessageTag && statusCodeTag.childNodes[0]) {
+          let status = statusCodeTag.childNodes[0].nodeValue;
+          
+          if (status === "taken") {
+            let errorText = errorMessageTag.childNodes[0].nodeValue;
+            errorSpan.innerHTML = errorText; 
+          } else {
+            errorSpan.innerHTML = ""; 
+          }
+        }
       }
-
-      let password = document.forms["registerForm"]["password"].value;
-      if (password == "") {
-        alert("Password must be filled out");
-        return false;
-      } else if (password.length < 6) {
-        alert("Password must be at least 6 characters long");
-        return false;
-      }
-      return true;
     }
-  </script>
+  };
+  xhr.send();
+}
 
+function submitRegistration(event) {
+    event.preventDefault(); 
+
+    if (!validateForm()) return;
+
+    let formData = new FormData(document.forms['registerForm']);
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "../php/register_process.php", true);
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {//xml display
+            alert(xhr.responseText);
+ 
+            window.location.href = "../php/login.php";
+        }
+    };
+    xhr.send(formData);
+}
+
+</script>
 </body>
 </html>

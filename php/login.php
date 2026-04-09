@@ -5,16 +5,20 @@
     <title>Login</title>
     <link rel="stylesheet" href="../css/form.css">
 </head>
-<body>
-    <div style = "text-align: center;" class="form-container">
+<body class="login-bg">
+    <div class="form-container">
         <h2>Login</h2>
 
-        <?php if(isset($error)) echo "<p style='color:red;'>$error</p>"; ?>
+        <?php if(isset($error)) echo "<p class='error-text'>$error</p>"; ?>
 
         <form action="../php/login_process.php" method="POST">
-            <input type="email" name="email" placeholder="Email" required>
+            <input type="email" name="email" placeholder="Email Address" required>
+            
             <input type="password" name="password" placeholder="Password" required>
-            <button type="submit" name="login">Login</button>
+            
+            <div class="button-group">
+                <button type="submit" name="login">Login</button>
+            </div>
         </form>
         <p>Don't have an account? <a href="../html/register.html">Register here</a></p>
     </div>
