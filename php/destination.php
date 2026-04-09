@@ -1,33 +1,32 @@
 <?php
 session_start();
 
-/**
- * XML DATA LOADING & VALIDATION
- */
 $xmlFile = '../xml/destinations.xml';
 $xsdFile = '../xsd/destinations.xsd';
 $xslFile = '../xsl/destinations.xsl';
 
-$xml = new DOMDocument();
-$xml->load($xmlFile);
+$transformedOutput = "<p class='no-posts'>Error loading destinations.</p>";
 
-// 1. Validate XML against XSD before proceeding
-$isValid = @$xml->schemaValidate($xsdFile); 
+if (file_exists($xmlFile) && file_exists($xslFile)) {
+    libxml_use_internal_errors(true);
 
-/**
- * XSLT TRANSFORMATION
- */
-if ($isValid) {
-    $xsl = new DOMDocument();
-    $xsl->load($xslFile);
+    $xml = new DOMDocument();
+    $xml->load($xmlFile);
 
-    $proc = new XSLTProcessor();
-    $proc->importStyleSheet($xsl);
-    
-    // Transform the XML into the HTML posts
-    $transformedOutput = $proc->transformToXML($xml);
-} else {
-    $transformedOutput = "<p class='no-posts'>Error: XML data does not match the schema.</p>";
+    if ($xml->schemaValidate($xsdFile)) {
+        $xsl = new DOMDocument();
+        $xsl->load($xslFile);
+
+        $proc = new XSLTProcessor();
+        $proc->importStyleSheet($xsl);
+
+        $result = $proc->transformToXML($xml);
+        if ($result !== false) {
+            $transformedOutput = $result;
+        }
+    }
+
+    libxml_clear_errors();
 }
 ?>
 
@@ -50,10 +49,10 @@ if ($isValid) {
                 <li><a href="../php/journal.php">Journal</a></li>
                 <li><a href="../php/destination.php" class="active">Destinations</a></li>
                 <li><a href="../php/view_favourites.php">My Favourites</a></li>
-                <li><a href="../php/contact.php">About</a></li> 
+                <li><a href="../php/contact.php">About</a></li>
             </ul>
             <div class="profile-btn">
-                <?php if(isset($_SESSION['username'])): ?>
+                <?php if (isset($_SESSION['username'])): ?>
                     <a href="../php/profile.php">
                         <i class="fa-solid fa-user"></i> <?= htmlspecialchars($_SESSION['username']); ?>
                     </a>
@@ -74,7 +73,7 @@ if ($isValid) {
 
     <div class="container">
         <div class="main-content">
-            
+
             <div class="posts-section" id="post-results">
                 <?= $transformedOutput ?>
             </div>
@@ -94,7 +93,7 @@ if ($isValid) {
                         <li data-category="All" class="active"><i class="fas fa-globe"></i> All</li>
                         <li data-category="Adventure"><i class="fas fa-mountain"></i> Adventure</li>
                         <li data-category="Culture"><i class="fas fa-landmark"></i> Culture</li>
-                        <li data-category="Food & Drink"><i class="fas fa-utensils"></i> Food & Drink</li>
+                        <li data-category="Food &amp; Drink"><i class="fas fa-utensils"></i> Food &amp; Drink</li>
                         <li data-category="Photography"><i class="fas fa-camera"></i> Photography</li>
                     </ul>
                 </div>
@@ -110,28 +109,33 @@ if ($isValid) {
                 </div>
             </aside>
 
-        </div> 
-    </div> 
+        </div>
+    </div>
 
     <script>
     function loadPosts() {
         const q = document.getElementById('search-input').value;
         const activeLi = document.querySelector('.category-list li.active');
         const category = activeLi ? activeLi.getAttribute('data-category') : 'All';
-        // Call the search web service via SOAP client
-        const webServiceUrl = '../search-service/client.php?category=' + encodeURIComponent(category) + '&query=' + encodeURIComponent(q);
+
+        const webServiceUrl = '../search-service/client.php'
+            + '?category=' + encodeURIComponent(category)
+            + '&query='    + encodeURIComponent(q);
+
         fetch(webServiceUrl)
-        .then(res => res.text())
-        .then(html => {
-            document.getElementById('post-results').innerHTML = html;
-        })
-        .catch(error => {
-            console.error('Error calling search service:', error);
-            document.getElementById('post-results').innerHTML = '<p class="no-posts">Error loading results. Please try again.</p>';
-        });
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('post-results').innerHTML = html;
+            })
+            .catch(error => {
+                console.error('Error calling search service:', error);
+                document.getElementById('post-results').innerHTML =
+                    '<p class="no-posts">Error loading results. Please try again.</p>';
+            });
     }
+
     document.querySelectorAll('.category-list li').forEach(li => {
-        li.addEventListener('click', function() {
+        li.addEventListener('click', function () {
             document.querySelectorAll('.category-list li').forEach(el => el.classList.remove('active'));
             this.classList.add('active');
             loadPosts();
@@ -140,5 +144,6 @@ if ($isValid) {
 
     document.getElementById('search-input').addEventListener('input', loadPosts);
     </script>
+
 </body>
 </html>

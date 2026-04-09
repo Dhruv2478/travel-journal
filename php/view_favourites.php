@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container" style="margin-top: 50px;">
-        <h1 style="color: #0a3142;"><i style="color: #f26c4f;"></i> My Favourite Collection</h1>
+        <h1 style="color: #0a3142;"><i style="color: #f26c4f;"></i> My Favourite destinations</h1>
 
         <table style="width: 100%; border-collapse: collapse; margin-top: 20px; background: white;">
             <thead>

@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['xmlString'])) {
 
     // 1. Load the XML into a DOMDocument for validation
     $xml = new DOMDocument();
-    // Suppress internal errors so we can handle them manually
+
     libxml_use_internal_errors(true);
     
     if (!$xml->loadXML($xmlData)) {
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['xmlString'])) {
             exit();
         }
     } else {
-        // VALIDATION FAILED: Show the errors
+        // VALIDATION FAILED
         $errors = libxml_get_errors();
         echo "<div style='color: #721c24; background: #f8d7da; padding: 20px; border-radius: 8px; font-family: sans-serif;'>";
         echo "<h3><i class='fas fa-exclamation-triangle'></i> XML Validation Error</h3>";
