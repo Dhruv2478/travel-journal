@@ -1,35 +1,41 @@
 <?php
-header('Content-Type: text/xml');
 include("../database/database_connection.php");
 
-echo '<?xml version="1.0" encoding="UTF-8"?>';
-echo '<user_validation_data>'; 
+// Tell the browser this response is XML
+header('Content-Type: application/xml');
 
-$field = $_GET['field'] ?? '';
-$value = $_GET['value'] ?? '';
+// Get and sanitise inputs
+$field = isset($_GET['field']) ? $_GET['field'] : '';
+$value = isset($_GET['value']) ? trim($_GET['value']) : '';
 
-if (!empty($field) && !empty($value)) {
-    echo '<check field="' . htmlspecialchars($field) . '">';
+$allowed_fields = array('username', 'email');
 
-    $column = ($field === 'username') ? 'username' : 'email';
-    
-    $stmt = $conn->prepare("SELECT id FROM users WHERE $column = ?");
-    $stmt->bind_param("s", $value);
-    $stmt->execute();
-    $res = $stmt->get_result();
-    
-    if ($res->num_rows > 0) {
-        echo '<status_code>taken</status_code>';
-        $msg = ($field === 'username') ? "Username already exists" : "Email already registered";
-        echo '<error_message>' . $msg . '</error_message>';
-    } else {
-        echo '<status_code>available</status_code>';
-        echo '<error_message></error_message>';
-    }
-    
-    echo '</check>';
-    $stmt->close();
+if (!in_array($field, $allowed_fields) || $value === '') {
+    echo "<?xml version='1.0' encoding='UTF-8'?>";
+    echo "<response><status exists='no'>Invalid request</status></response>";
+    exit;
 }
-echo '</user_validation_data>';
+
+// Prepare and execute query
+$stmt = $conn->prepare("SELECT id FROM users WHERE $field = ?");
+$stmt->bind_param("s", $value);
+$stmt->execute();
+$stmt->store_result();
+
+echo "<?xml version='1.0' encoding='UTF-8'?>";
+
+if ($stmt->num_rows > 0) {
+    // Field value already taken
+    echo "<response>";
+    echo "<status exists='yes'>" . ucfirst($field) . " already taken</status>";
+    echo "</response>";
+} else {
+    // Field value is available
+    echo "<response>";
+    echo "<status exists='no'>" . ucfirst($field) . " is available</status>";
+    echo "</response>";
+}
+
+$stmt->close();
 $conn->close();
 ?>

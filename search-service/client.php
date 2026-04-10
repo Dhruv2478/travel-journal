@@ -5,17 +5,17 @@ require_once("../lib/nusoap.php");
 $category = $_GET["category"] ?? 'All';
 $query    = $_GET["query"]    ?? '';
 
-// ── 1. SOAP call for DB destinations ────────────────────────────────────────
+// SOAP call for DB destinations
 $url    = "http://localhost/travelweb/search-service/server.php?wsdl";
 $client = new nusoap_client($url, 'wsdl');
 $response = $client->call('searchDestinations', array('category' => $category, 'query' => $query));
 
-// ── 2. Build XML document ────────────────────────────────────────────────────
+// Build XML document
 $XMLDocument = new SimpleXMLElement('<?xml version="1.0" ?><SearchResults></SearchResults>');
 
 $hasResults = false;
 
-// ── 3. Add DB results ────────────────────────────────────────────────────────
+//  Add DB results
 if (!$client->fault && !$client->getError()) {
     if (is_array($response) && count($response) > 0) {
         foreach ($response as $record) {
@@ -33,7 +33,7 @@ if (!$client->fault && !$client->getError()) {
     }
 }
 
-// ── 4. Load & merge XML file destinations ───────────────────────────────────
+// Load & merge XML file destinations 
 $xmlFile = '../xml/destinations.xml';
 $xsdFile = '../xsd/destinations.xsd';
 
@@ -86,7 +86,7 @@ if (file_exists($xmlFile)) {
     libxml_clear_errors();
 }
 
-// ── 5. Output ────────────────────────────────────────────────────────────────
+// Output 
 if (!$hasResults) {
     echo "<p class='no-posts'>No destinations found matching your search.</p>";
     exit;

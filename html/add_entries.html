@@ -45,7 +45,7 @@ function prepareXml() {
 
     if (!t || !d || !e) { alert("Fill all fields"); return false; }
 
-    // This structure matches the XSD above perfectly
+    
     let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<entries>\n  <entry>\n';
     xml += `    <title>${t}</title>\n`;
     xml += `    <destination>${d}</destination>\n`;

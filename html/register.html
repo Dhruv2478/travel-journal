@@ -9,17 +9,20 @@
 
   <div class="form-container">
     <h2>Create Account</h2>
-    <form name="registerForm" action="../php/register_process.php" method="POST" onsubmit="return validateForm()">
-      
+    <form name="registerForm" action="../php/register_process.php" method="POST" onsubmit="submitRegistration(event)">
+
+      <label for="username">Username</label>
       <input type="text" id="username" name="username" placeholder="Username" onkeyup="checkField('username')">
       <span id="username-error" class="error-msg"></span>
-      
+
+      <label for="email">Email</label>
       <input type="email" id="email" name="email" placeholder="Email" onkeyup="checkField('email')">
       <span id="email-error" class="error-msg"></span>
-      
+
+      <label for="password">Password</label>
       <input type="password" id="password" name="password" placeholder="Password">
-      <span class="error-msg"></span>
-      
+      <span id="password-error" class="error-msg"></span>
+
       <div class="button-group">
         <button type="submit" name="register">Register</button>
         <input type="reset" value="Clear" onclick="clearErrors()">
@@ -29,62 +32,132 @@
   </div>
 
 <script>
-function checkField(fieldName) {
-  let fieldValue = document.getElementById(fieldName).value;
-  let errorSpan = document.getElementById(fieldName + "-error");
+  // AJAX GET: check if username or email already exists 
+  function checkField(fieldName) {
+    var fieldValue = document.getElementById(fieldName).value;
+    var errorSpan  = document.getElementById(fieldName + "-error");
 
-  if (fieldValue.length < 3) {
-    errorSpan.innerHTML = "";
-    return;
-  }
+    if (fieldValue.length < 3) {
+      errorSpan.innerHTML = "";
+      return;
+    }
 
-  let xhr = new XMLHttpRequest();
-  xhr.open("GET", "../php/check_user.php?field=" + fieldName + "&value=" + encodeURIComponent(fieldValue), true);
-  
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState == 4 && xhr.status == 200) {
-      let xmlDoc = xhr.responseXML;
-      
-      if (xmlDoc) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "../php/check_user.php?field=" + fieldName + "&value=" + encodeURIComponent(fieldValue), true);
 
-        let statusCodeTag = xmlDoc.getElementsByTagName("status_code")[0];
-        let errorMessageTag = xmlDoc.getElementsByTagName("error_message")[0];
- 
-        if (statusCodeTag && errorMessageTag && statusCodeTag.childNodes[0]) {
-          let status = statusCodeTag.childNodes[0].nodeValue;
-          
-          if (status === "taken") {
-            let errorText = errorMessageTag.childNodes[0].nodeValue;
-            errorSpan.innerHTML = errorText; 
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4) {
+        if (xhr.status == 200) {
+          // Parse XML response 
+          var xmlResponse = xhr.responseXML;
+          var statusTag   = xmlResponse.getElementsByTagName("status")[0];
+          var message     = statusTag.firstChild.nodeValue;
+          var exists      = statusTag.getAttribute("exists"); // "yes" or "no"
+
+          if (exists === "yes") {
+            errorSpan.innerHTML = "<b><font color='red'>" + message + "</font></b>";
           } else {
-            errorSpan.innerHTML = ""; 
+            errorSpan.innerHTML = "<b><font color='green'>" + message + "</font></b>";
           }
+        } else {
+          alert("An error occurred making the request");
         }
       }
-    }
-  };
-  xhr.send();
-}
+    };
+    xhr.send(null);
+  }
 
-function submitRegistration(event) {
-    event.preventDefault(); 
+  //  Client-side validation before submitting 
+  function validateForm() {
+    var valid = true;
+
+    var username = document.getElementById("username").value.trim();
+    var email    = document.getElementById("email").value.trim();
+    var password = document.getElementById("password").value;
+
+    if (username.length < 3) {
+      document.getElementById("username-error").innerHTML =
+        "<b><font color='red'>Username must be at least 3 characters</font></b>";
+      valid = false;
+    }
+
+    if (email === "") {
+      document.getElementById("email-error").innerHTML =
+        "<b><font color='red'>Email is required</font></b>";
+      valid = false;
+    }
+
+    if (password.length < 6) {
+      document.getElementById("password-error").innerHTML =
+        "<b><font color='red'>Password must be at least 6 characters</font></b>";
+      valid = false;
+    }
+
+    return valid;
+  }
+
+  // ── AJAX POST: submit registration, handle XML response 
+  function submitRegistration(event) {
+    event.preventDefault();
 
     if (!validateForm()) return;
 
-    let formData = new FormData(document.forms['registerForm']);
-    let xhr = new XMLHttpRequest();
+    var formData = new FormData(document.forms['registerForm']);
+    var xhr      = new XMLHttpRequest();
     xhr.open("POST", "../php/register_process.php", true);
 
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {//xml display
-            alert(xhr.responseText);
- 
-            window.location.href = "../php/login.php";
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4) {
+        if (xhr.status == 200) {
+          //  Parse XML response from register_process.php 
+          var xmlResponse = xhr.responseXML;
+
+          // Check if XML is valid
+          if (!xmlResponse) {
+            alert("Unexpected server response. Please try again.");
+            return;
+          }
+
+          // Check for error tag first
+          var errorTags = xmlResponse.getElementsByTagName("error");
+          if (errorTags.length > 0) {
+            var errorMsg = errorTags[0].firstChild.nodeValue;
+            alert("Registration failed: " + errorMsg);
+            return;
+          }
+
+          // Success: extract values from XML
+          var travelerTag = xmlResponse.getElementsByTagName("new_traveler")[0];
+          var userId      = travelerTag.getAttribute("user_id");
+          var username    = xmlResponse.getElementsByTagName("username")[0].firstChild.nodeValue;
+          var email       = xmlResponse.getElementsByTagName("email")[0].firstChild.nodeValue;
+          var status      = xmlResponse.getElementsByTagName("account_status")[0].firstChild.nodeValue;
+          var entries     = xmlResponse.getElementsByTagName("entries")[0].firstChild.nodeValue;
+
+          alert(
+            "Registration successful!\n\n" +
+            "Welcome, " + username + "!\n" +
+            "User ID: " + userId + "\n" +
+            "Email: " + email + "\n" +
+            "Account Status: " + status + "\n" +
+            "Journal Entries: " + entries
+          );
+
+          window.location.href = "../php/login.php";
+        } else {
+          alert("An error occurred making the request");
         }
+      }
     };
     xhr.send(formData);
-}
+  }
 
+  //  Clear all error messages 
+  function clearErrors() {
+    document.getElementById("username-error").innerHTML = "";
+    document.getElementById("email-error").innerHTML    = "";
+    document.getElementById("password-error").innerHTML = "";
+  }
 </script>
 </body>
 </html>

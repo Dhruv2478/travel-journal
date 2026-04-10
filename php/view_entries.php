@@ -9,7 +9,8 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/journal.css">
     <style>
-        .entries-container { max-width: 1000px; margin: 50px auto; padding: 20px; background: #fff; border-radius: 12px; box-shadow: 0 5px 25px rgba(0,0,0,0.1); }
+        .entries-container { max-width: 1000px; margin: 50px auto; padding: 20px; background: #fff; 
+        border-radius: 12px; box-shadow: 0 5px 25px rgba(0,0,0,0.1); }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
         th { background-color: #0a3142; color: white; padding: 15px; text-align: left; }
         td { padding: 12px; border: 1px solid #ddd; }
@@ -50,7 +51,7 @@ session_start();
                                 // 4. Loop through every file found
                                 foreach ($files as $file) {
                                     $xml = new DOMDocument();
-                                    // Load the specific file found by glob()
+                                    // Load the specific file 
                                     if ($xml->load($file)) {
                                         echo $proc->transformToXML($xml);
                                     }
@@ -69,7 +70,9 @@ session_start();
             </table>
 
             <div style="text-align:center; margin-top: 20px;">
-                <a href="../html/add_entries.html" class="btn-action btn-submit-xml" style="text-decoration:none; color:white; padding:10px 20px; display:inline-block; background-color:#f26c4f; border-radius:5px;">Add New Entry</a>
+                <a href="../html/add_entries.html" class="btn-action btn-submit-xml" style="text-decoration:none; color:white; 
+                padding:10px 20px; display:inline-block; 
+                background-color:#f26c4f; border-radius:5px;">Add New Entry</a>
                 <br><br>
                 <a href="journal.php" class="back-link">
                 <i class="fas fa-arrow-left"></i> Back to Journal
